@@ -1,4 +1,10 @@
-(defun debug-ito-open-block()
+(defun debug-ito-require-if-any (feature &optional filename)
+  (if (require feature filename t)
+      t
+    (progn (warn "Cannot find and load %s. Skip." feature)
+           nil)))
+
+(defun debug-ito-open-block ()
   "Open a line for a new block."
   (interactive)
   (let*

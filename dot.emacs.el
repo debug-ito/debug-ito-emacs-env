@@ -1,10 +1,8 @@
 ;; Save this file in ISO-2022-JP because it is the coding system for Anthy!
-
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/twittering-mode-dev/twittering-mode/")
 (load-library "misc-func")
 (load-library "debug-ito")
-
 
 (setq inhibit-startup-screen t)
 (mouse-wheel-mode 1) ;; Enable wheel mouse
@@ -21,7 +19,7 @@
 
 
 ;;;;;;;;;;;;;; elscreen http://www.morishima.net/~naoto/elscreen-en/?lang=en
-(require 'elscreen)
+(debug-ito-require-if-any 'elscreen)
 
 ;;;;;;;;;;;;;; Setting for X mode
 (cond (window-system
@@ -52,46 +50,45 @@
 ;;;;;;;;;;;;;;; anthy
 ;; See http://forum.ubuntulinux.jp/viewtopic.php?pid=773
 ;; Apparently ISO-2022-JP should be used to encode the japanese characters below
-(require 'anthy)
-(when (>= emacs-major-version 22)
-  (setq anthy-accept-timeout 1))
-(setq default-input-method "japanese-anthy")
-(setq anthy-wide-space " ")
-(anthy-change-hiragana-map "la" "ぁ")
-(anthy-change-hiragana-map "li" "ぃ")
-(anthy-change-hiragana-map "lu" "ぅ")
-(anthy-change-hiragana-map "le" "ぇ")
-(anthy-change-hiragana-map "lo" "ぉ")
-(anthy-change-hiragana-map "ltu" "っ")
-(anthy-change-hiragana-map "lya" "ゃ")
-(anthy-change-hiragana-map "lyu" "ゅ")
-(anthy-change-hiragana-map "lyo" "ょ")
-(anthy-change-hiragana-map "cj" "・")
-(anthy-change-katakana-map "la" "ァ")
-(anthy-change-katakana-map "li" "ィ")
-(anthy-change-katakana-map "lu" "ゥ")
-(anthy-change-katakana-map "le" "ェ")
-(anthy-change-katakana-map "lo" "ォ")
-(anthy-change-katakana-map "ltu" "ッ")
-(anthy-change-katakana-map "lya" "ャ")
-(anthy-change-katakana-map "lyu" "ュ")
-(anthy-change-katakana-map "lyo" "ョ")
-(anthy-change-katakana-map "cj" "・")
-;; Change keybind for chainging maps
-;; http://ubulog.blogspot.com/2009/02/emacsanthyel.html
-(setq anthy-rkmap-keybind
-      '((("alphabet" . ?\C-j) . "hiragana")
-        (("hiragana" . ?\C-j) . "alphabet")
-        (("hiragana" . ?q) . "katakana")
-        (("katakana" . ?q) . "hiragana")
-        (("hiragana"     . ?\C-q) . "hankaku_kana")
-        (("hankaku_kana" . ?\C-q) . "walphabet")
-        (("walphabet" . ?\C-q) . "hiragana")))
-
-;; Immediately return to Hiragana mode after commiting Katakanas.
-(add-hook 'anthy-commit-hook (lambda ()
-                               (when (string= "katakana" anthy-current-rkmap)
-                                 (anthy-hiragana-map))))
+(when (debug-ito-require-if-any 'anthy)
+  (when (>= emacs-major-version 22)
+    (setq anthy-accept-timeout 1))
+  (setq default-input-method "japanese-anthy")
+  (setq anthy-wide-space " ")
+  (anthy-change-hiragana-map "la" "ぁ")
+  (anthy-change-hiragana-map "li" "ぃ")
+  (anthy-change-hiragana-map "lu" "ぅ")
+  (anthy-change-hiragana-map "le" "ぇ")
+  (anthy-change-hiragana-map "lo" "ぉ")
+  (anthy-change-hiragana-map "ltu" "っ")
+  (anthy-change-hiragana-map "lya" "ゃ")
+  (anthy-change-hiragana-map "lyu" "ゅ")
+  (anthy-change-hiragana-map "lyo" "ょ")
+  (anthy-change-hiragana-map "cj" "・")
+  (anthy-change-katakana-map "la" "ァ")
+  (anthy-change-katakana-map "li" "ィ")
+  (anthy-change-katakana-map "lu" "ゥ")
+  (anthy-change-katakana-map "le" "ェ")
+  (anthy-change-katakana-map "lo" "ォ")
+  (anthy-change-katakana-map "ltu" "ッ")
+  (anthy-change-katakana-map "lya" "ャ")
+  (anthy-change-katakana-map "lyu" "ュ")
+  (anthy-change-katakana-map "lyo" "ョ")
+  (anthy-change-katakana-map "cj" "・")
+  ;; Change keybind for chainging maps
+  ;; http://ubulog.blogspot.com/2009/02/emacsanthyel.html
+  (setq anthy-rkmap-keybind
+        '((("alphabet" . ?\C-j) . "hiragana")
+          (("hiragana" . ?\C-j) . "alphabet")
+          (("hiragana" . ?q) . "katakana")
+          (("katakana" . ?q) . "hiragana")
+          (("hiragana"     . ?\C-q) . "hankaku_kana")
+          (("hankaku_kana" . ?\C-q) . "walphabet")
+          (("walphabet" . ?\C-q) . "hiragana")))
+  ;; Immediately return to Hiragana mode after commiting Katakanas.
+  (add-hook 'anthy-commit-hook (lambda ()
+                                 (when (string= "katakana" anthy-current-rkmap)
+                                   (anthy-hiragana-map)))))
 
 
 ;;;;;;;;;;;;; shell mode
@@ -140,12 +137,12 @@
 
 ;;;;;;;;;;;;;;;;;;; For Japanese printing
 ;; See also https://wiki.ubuntulinux.jp/UbuntuTips/Application/EmacsJapanesePrint
+(debug-ito-require-if-any 'ps-mule)
 (setq ps-multibyte-buffer 'non-latin-printer)
-(require 'ps-mule)
 (defalias 'ps-mule-header-string-charsets 'ignore)
 
 ;;;;;;;;;;;;;;;;;;;; twittering mode  http://twmode.sourceforge.net/index.html
-(require 'twittering-mode)
+(debug-ito-require-if-any 'twittering-mode)
 (setq twittering-icon-mode t)
 (setq twittering-use-master-password t)
 (setq twittering-status-format "%i %s,  %C{%Y/%m/%d %H:%M:%S}:\n%FILL[  ]{%T // %r%R}\n ")
@@ -178,9 +175,9 @@
 
 ;;;;;;;;;;;;;;;;;;; Rotate text
 ;; https://github.com/debug-ito/rotate-text.el
-(require 'rotate-text)
+(debug-ito-require-if-any 'rotate-text)
 (defvar debug-ito-rotate-symbolics
-  '(("->" "=>" ">=" "<=" ">" "<") ("$" "&" "$$" "\\\\" "%" "@" "$@")))
+  '(("->" "=>" "<=" ">=" ">" "<") ("$" "&" "$$" "\\\\" "%" "@" "$@")))
 (defun debug-ito-rotate-symbolic-characters (original arg)
   (let ((temp-symbolics debug-ito-rotate-symbolics)
         replacement)
@@ -193,12 +190,12 @@
 
 ;;;;;;;;;;;;;;;;;;; Other settings
 ;; http://d.hatena.ne.jp/rubikitch/20090219/sequential_command
-(require 'sequential-command-config)
-(sequential-command-setup-keys)
+(when (debug-ito-require-if-any 'sequential-command-config)
+  (sequential-command-setup-keys))
 
 ;; http://www.emacswiki.org/emacs/sticky.el
-(require 'sticky)
-(use-sticky-key 'muhenkan sticky-alist:ja)
+(when (debug-ito-require-if-any 'sticky)
+  (use-sticky-key 'muhenkan sticky-alist:ja))
 
 
 ;;;;;;;;;;;;; Key customization
@@ -250,25 +247,23 @@
           (,(kbd "C-t") . (lambda (arg) (interactive "p")
                             (if (= arg 1)
                                 (rotate-text-backward arg "@")
-                              (rotate-text arg ">="))))
+                              (rotate-text-backward arg ">="))))
           
           (,(kbd "<C-tab>") . dabbrev-expand)))
-
 
 (define-minor-mode my-keyjack-mode
   "A minor mode so that my key settings override annoying major modes."
   t nil 'my-keyjack-mode-map)
-
 (my-keyjack-mode 1)
 
 
-;;;;; for testing...
-;; http://www.jrh.org/dotemacs.html
-(defface font-lock-function-call-face
-  '((t (:foreground "orange")))
-  "Font Lock mode face used to highlight function calls."
-  :group 'font-lock-highlighting-faces)
-
+;; ;;;;; for testing...
+;; ;; http://www.jrh.org/dotemacs.html
+;; (defface font-lock-function-call-face
+;;   '((t (:foreground "orange")))
+;;   "Font Lock mode face used to highlight function calls."
+;;   :group 'font-lock-highlighting-faces)
+;; 
 ;; (defvar font-lock-function-call-face 'font-lock-function-call-face)
 ;; (add-hook 'c-mode-hook
 ;;           (lambda ()
@@ -276,5 +271,4 @@
 ;;              nil
 ;;              '(("\\<\\(\\sw+\\) ?(" 1 font-lock-function-call-face)) t)))
 ;; 
-
 
