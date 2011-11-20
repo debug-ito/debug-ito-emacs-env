@@ -152,14 +152,15 @@
 
 ;;;;;;;;;;;;;; (C)Perl mode
 ;; http://www.emacswiki.org/emacs/CPerlMode
-;; (defalias 'perl-mode 'cperl-mode)
-(setq cperl-invalid-face 'off
+(defalias 'perl-mode 'cperl-mode)
+(setq cperl-invalid-face nil
       cperl-electric-lbrace-space t
       cperl-close-paren-offset -4
       cperl-continued-statement-offset 4
       cperl-indent-level 4
       cperl-indent-parens-as-block t
-      cperl-highlight-variables-indiscriminately t)
+      cperl-highlight-variables-indiscriminately t
+      cperl-font-lock t)
 ;; Forbid ugly special color theme. Standard theme is the most beautiful.
 (copy-face font-lock-variable-name-face 'cperl-array-face)
 (copy-face font-lock-variable-name-face 'cperl-hash-face)
@@ -168,6 +169,15 @@
           (lambda ()
             (local-set-key (kbd "M-m") (lambda () (interactive) (insert "my ")))
             (local-set-key (kbd "<tab>") 'indent-for-tab-command)))
+
+;;;; It seems that CPerl mode messes up with font-lock-keywords variable when
+;;;; you use font-lock-add-keywords to add custom patterns for font-lock.
+;;;; And it seems very difficult to add a pattern safely unless you embed it inside
+;;;; the code of CPerl mode.
+;; (font-lock-add-keywords nil
+;;                         '(("&[a-zA-Z_0-9]*" 0  font-lock-function-call-face))
+;;                         nil)))
+
 
 
 ;;;;;;;;;;;;;;;;;;; Rotate text
@@ -248,3 +258,20 @@
   t nil 'my-keyjack-mode-map)
 
 (my-keyjack-mode 1)
+
+
+;; http://www.jrh.org/dotemacs.html
+(defface font-lock-function-call-face
+  '((t (:foreground "orange")))
+  "Font Lock mode face used to highlight function calls."
+  :group 'font-lock-highlighting-faces)
+
+;; (defvar font-lock-function-call-face 'font-lock-function-call-face)
+;; (add-hook 'c-mode-hook
+;;           (lambda ()
+;;             (font-lock-add-keywords
+;;              nil
+;;              '(("\\<\\(\\sw+\\) ?(" 1 font-lock-function-call-face)) t)))
+;; 
+
+
