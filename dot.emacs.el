@@ -150,10 +150,24 @@
 (setq twittering-use-master-password t)
 (setq twittering-status-format "%i %s,  %C{%Y/%m/%d %H:%M:%S}:\n%FILL[  ]{%T // %r%R}\n ")
 
-;;;;;;;;;;;;;; Perl mode
-(add-hook 'perl-mode-hook
-          (lambda () (local-set-key (kbd "M-m")
-                                    (lambda () (interactive) (insert "my ")))))
+;;;;;;;;;;;;;; (C)Perl mode
+;; http://www.emacswiki.org/emacs/CPerlMode
+;; (defalias 'perl-mode 'cperl-mode)
+(setq cperl-invalid-face 'off
+      cperl-electric-lbrace-space t
+      cperl-close-paren-offset -4
+      cperl-continued-statement-offset 4
+      cperl-indent-level 4
+      cperl-indent-parens-as-block t
+      cperl-highlight-variables-indiscriminately t)
+;; Forbid ugly special color theme. Standard theme is the most beautiful.
+(copy-face font-lock-variable-name-face 'cperl-array-face)
+(copy-face font-lock-variable-name-face 'cperl-hash-face)
+(copy-face font-lock-keyword-face       'cperl-nonoverridable-face)
+(add-hook 'cperl-mode-hook
+          (lambda ()
+            (local-set-key (kbd "M-m") (lambda () (interactive) (insert "my ")))
+            (local-set-key (kbd "<tab>") 'indent-for-tab-command)))
 
 
 ;;;;;;;;;;;;;;;;;;; Rotate text
@@ -192,6 +206,8 @@
 ;; Always-enabled global key setting
 ;; http://pqrs.org/emacs/doc/keyjack-mode/index.html
 ;; http://stackoverflow.com/questions/683425/globally-override-key-binding-in-emacs
+;;
+;; kbd macro seems to accept constants only. We have to repeat writing it.
 (setq my-keyjack-mode-map (make-sparse-keymap))
 (mapcar (lambda (x)
           (message "arg: %s" x)
@@ -232,4 +248,3 @@
   t nil 'my-keyjack-mode-map)
 
 (my-keyjack-mode 1)
-
