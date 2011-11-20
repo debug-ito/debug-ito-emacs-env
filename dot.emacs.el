@@ -185,42 +185,51 @@
 
 ;; C-h as backspace in i-search mode
 ;; http://www.hpcs.cs.tsukuba.ac.jp/~yonemoto/pukiwiki/index.php?Meadow%2F.emacs
-(define-key isearch-mode-map "\C-h" 'isearch-delete-char)
+(define-key isearch-mode-map (kbd "C-h") 'isearch-delete-char)
 
-;; C-h as backspace, like bash
-(global-set-key "\C-h" 'backward-delete-char-untabify)
-(global-set-key (kbd "C-x C-h") 'help)
-
-;; One-touch parentheses, quotes and others
 ;; (setq parens-require-spaces nil)
-(global-set-key (kbd "C-c h") (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "[" "]")))
-(global-set-key (kbd "C-c j") (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "(" ")")))
-(global-set-key (kbd "C-c k") (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "{" "}")))
-(global-set-key (kbd "C-c l") (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "\"" "\"")))
-(global-set-key (kbd "C-c ;") (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "'" "'")))
-(global-set-key (kbd "C-c n") (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "<" ">")))
-;; One-touch opening a block
-(global-set-key (kbd "C-c C-j") 'debug-ito-open-block)
 
-;; sequential numbering
-(global-set-key (kbd "C-x r n") 'debug-ito-sequence-rectangle)
+;; Always-enabled global key setting
+;; http://pqrs.org/emacs/doc/keyjack-mode/index.html
+;; http://stackoverflow.com/questions/683425/globally-override-key-binding-in-emacs
+(setq my-keyjack-mode-map (make-sparse-keymap))
+(mapcar (lambda (x)
+          (message "arg: %s" x)
+          (define-key my-keyjack-mode-map (car x) (cdr x))
+          (global-set-key (car x) (cdr x)))
+        `((,(kbd "C-h") . backward-delete-char-untabify)
+          (,(kbd "C-x C-h") . help)
+          ;; One-touch parentheses, quotes and others
+          (,(kbd "C-c h") . (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "[" "]")))
+          (,(kbd "C-c j") . (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "(" ")")))
+          (,(kbd "C-c k") . (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "{" "}")))
+          (,(kbd "C-c l") . (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "\"" "\"")))
+          (,(kbd "C-c ;") . (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "'" "'")))
+          (,(kbd "C-c n") . (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "<" ">")))
+          ;; One-touch opening a block
+          (,(kbd "C-c C-j") . debug-ito-open-block)
+          ;; sequential numbering
+          (,(kbd "C-x r n" ) . debug-ito-sequence-rectangle)
+          ;; some other settings
+          (,(kbd "C-;") . toggle-input-method)
+          (,(kbd "C-\\") . "_")
+          (,(kbd "C-^") . enlarge-window)
+          (,(kbd "C-~") . shrink-window)
+          (,(kbd "C-]") . enlarge-window-horizontally)
+          (,(kbd "C-}") . shrink-window-horizontally)
+          (,(kbd "C-x C-n") . next-multiframe-window)
+          (,(kbd "C-x C-p") . previous-multiframe-window)
+          (,(kbd "M-i") . complete-symbol)
+          (,(kbd "C-.") . (lambda () (interactive) (tags-apropos " ")))
+          (,(kbd "M-,") . (lambda () (interactive) (find-tag "" t)))
+          (,(kbd "C-o") . (lambda () (interactive) (rotate-text 1  "$")))
+          (,(kbd "C-t") . (lambda () (interactive) (rotate-text-backward 1 "@")))
+          (,(kbd "C-c C-o") . (lambda () (interactive) (rotate-text 1  "->")))
+          (,(kbd "<C-tab>") . dabbrev-expand)))
 
-;; some other settings
-(global-set-key (kbd "C-;") 'toggle-input-method)
-(global-set-key (kbd "C-\\") "_")
-(global-set-key (kbd "C-^") 'enlarge-window)
-(global-set-key (kbd "C-~") 'shrink-window)
-(global-set-key (kbd "C-]") 'enlarge-window-horizontally)
-(global-set-key (kbd "C-}") 'shrink-window-horizontally)
-(global-set-key (kbd "C-x C-n") 'next-multiframe-window)
-(global-set-key (kbd "C-x C-p") 'previous-multiframe-window)
+(define-minor-mode my-keyjack-mode
+  "A minor mode so that my key settings override annoying major modes."
+  t nil 'my-keyjack-mode-map)
 
-(global-set-key (kbd "M-i") 'complete-symbol)
-(global-set-key (kbd "C-.") '(lambda () (interactive) (tags-apropos " ")))
-(global-set-key (kbd "M-,") '(lambda () (interactive) (find-tag "" t)))
+(my-keyjack-mode 1)
 
-(global-set-key (kbd "C-o") (lambda () (interactive) (rotate-text 1  "$")))
-(global-set-key (kbd "C-t") (lambda () (interactive) (rotate-text-backward 1 "@")))
-(global-set-key (kbd "C-x C-o") (lambda () (interactive) (rotate-text 1  "->")))
-
-(global-set-key (kbd "<C-tab>") 'dabbrev-expand)
