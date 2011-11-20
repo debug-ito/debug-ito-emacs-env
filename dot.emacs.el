@@ -158,9 +158,7 @@
       cperl-close-paren-offset -4
       cperl-continued-statement-offset 4
       cperl-indent-level 4
-      cperl-indent-parens-as-block t
-      cperl-highlight-variables-indiscriminately t
-      cperl-font-lock t)
+      cperl-indent-parens-as-block t)
 ;; Forbid ugly special color theme. Standard theme is the most beautiful.
 (copy-face font-lock-variable-name-face 'cperl-array-face)
 (copy-face font-lock-variable-name-face 'cperl-hash-face)
@@ -178,13 +176,11 @@
 ;;                         '(("&[a-zA-Z_0-9]*" 0  font-lock-function-call-face))
 ;;                         nil)))
 
-
-
 ;;;;;;;;;;;;;;;;;;; Rotate text
 ;; https://github.com/debug-ito/rotate-text.el
 (require 'rotate-text)
 (defvar debug-ito-rotate-symbolics
-  '(("->" "=>" ">=" "<=" ">" "<") ("$" "&" "$$" "\\\\" "%" "@")))
+  '(("->" "=>" ">=" "<=" ">" "<") ("$" "&" "$$" "\\\\" "%" "@" "$@")))
 (defun debug-ito-rotate-symbolic-characters (original arg)
   (let ((temp-symbolics debug-ito-rotate-symbolics)
         replacement)
@@ -220,7 +216,6 @@
 ;; kbd macro seems to accept constants only. We have to repeat writing it.
 (setq my-keyjack-mode-map (make-sparse-keymap))
 (mapcar (lambda (x)
-          (message "arg: %s" x)
           (define-key my-keyjack-mode-map (car x) (cdr x))
           (global-set-key (car x) (cdr x)))
         `((,(kbd "C-h") . backward-delete-char-untabify)
@@ -238,7 +233,6 @@
           (,(kbd "C-x r n" ) . debug-ito-sequence-rectangle)
           ;; some other settings
           (,(kbd "C-;") . toggle-input-method)
-          (,(kbd "C-\\") . "_")
           (,(kbd "C-^") . enlarge-window)
           (,(kbd "C-~") . shrink-window)
           (,(kbd "C-]") . enlarge-window-horizontally)
@@ -246,12 +240,20 @@
           (,(kbd "C-x C-n") . next-multiframe-window)
           (,(kbd "C-x C-p") . previous-multiframe-window)
           (,(kbd "M-i") . complete-symbol)
-          (,(kbd "C-.") . (lambda () (interactive) (tags-apropos " ")))
+          (,(kbd "C-.") . ">")
+          (,(kbd "C-,") . "<")
+          (,(kbd "C--") . "=")
+          (,(kbd "C-\\") . "_")
           (,(kbd "M-,") . (lambda () (interactive) (find-tag "" t)))
-          (,(kbd "C-o") . (lambda () (interactive) (rotate-text 1  "$")))
-          (,(kbd "C-t") . (lambda () (interactive) (rotate-text-backward 1 "@")))
-          (,(kbd "C-c C-o") . (lambda () (interactive) (rotate-text 1  "->")))
+          (,(kbd "C-o") . (lambda (arg) (interactive "p") (rotate-text arg "$")))
+          (,(kbd "C-c C-o") . (lambda (arg) (interactive "p") (rotate-text arg  "->")))
+          (,(kbd "C-t") . (lambda (arg) (interactive "p")
+                            (if (= arg 1)
+                                (rotate-text-backward arg "@")
+                              (rotate-text arg ">="))))
+          
           (,(kbd "<C-tab>") . dabbrev-expand)))
+
 
 (define-minor-mode my-keyjack-mode
   "A minor mode so that my key settings override annoying major modes."
@@ -260,6 +262,7 @@
 (my-keyjack-mode 1)
 
 
+;;;;; for testing...
 ;; http://www.jrh.org/dotemacs.html
 (defface font-lock-function-call-face
   '((t (:foreground "orange")))
