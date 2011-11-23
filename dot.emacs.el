@@ -152,7 +152,6 @@
 ;; http://www.emacswiki.org/emacs/CPerlMode
 (defalias 'perl-mode 'cperl-mode)
 (setq cperl-invalid-face nil
-      cperl-electric-lbrace-space t
       cperl-close-paren-offset -4
       cperl-continued-statement-offset 4
       cperl-indent-level 4
