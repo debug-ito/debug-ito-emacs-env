@@ -175,7 +175,6 @@
 
 ;;;;;;;;;;;;;;;;;;; Rotate text
 ;; https://github.com/debug-ito/rotate-text.el
-(debugito-require-if-any 'rotate-text)
 (defvar debugito-rotate-symbolics
   '(("->" "=>" "<=" ">=" ">" "<") ("$" "&" "$$" "\\\\" "%" "@" "$@")))
 (defun debugito-rotate-symbolic-characters (original arg)
@@ -185,7 +184,8 @@
       (or replacement
           (setq replacement (rotate-text-replacement symbols original arg))))
     replacement))
-(add-to-list 'rotate-text-patterns '("[<>]=\\|[-=]?>\\|[\\$%&@<]" debugito-rotate-symbolic-characters))
+(when (debugito-require-if-any 'rotate-text)
+  (add-to-list 'rotate-text-patterns '("[<>]=\\|[-=]?>\\|[\\$%&@<]" debugito-rotate-symbolic-characters)))
 
 
 ;;;;;;;;;;;;;;;;;;; Other settings
