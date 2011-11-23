@@ -1,6 +1,16 @@
+(defun debugito-load-if-any (file &optional dont-warn)
+  "Frontend to `load'. It loads FILE and returns non-nil it it succeeds.
+Otherwise, it returns nil and shows warning. If DONT-WARN is non-nil, the warning
+is suppressed."
+  (if (load file t)
+      t
+    (progn (unless dont-warn
+             (warn "Cannot find and load %s. Skip." file))
+           nil)))
+
 (defun debugito-require-if-any (feature &optional filename dont-warn)
   "Frontend to `require'. If it loads FEATURE successfully, it returns non-nil.
-Otherwise, it returns nil and shows a warning. If DONT-WARN is non-nil, the warning
+Otherwise, it returns nil and shows warning. If DONT-WARN is non-nil, the warning
 is suppressed."
   (if (require feature filename t)
       t

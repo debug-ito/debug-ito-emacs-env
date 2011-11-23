@@ -1,8 +1,9 @@
 ;; Save this file in ISO-2022-JP because it is the coding system for Anthy!
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/twittering-mode-dev/twittering-mode/")
-(load-library "misc-func")
 (load-library "debugito")
+(debugito-load-if-any "misc-func")
+
 
 (setq inhibit-startup-screen t)
 (mouse-wheel-mode 1) ;; Enable wheel mouse
