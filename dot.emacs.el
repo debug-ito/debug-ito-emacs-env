@@ -213,6 +213,7 @@
 (global-set-key (kbd "C-c l") (lambda (arg) (interactive "p") (debugito-insert-pair arg "\"" "\"")))
 (global-set-key (kbd "C-c ;") (lambda (arg) (interactive "p") (debugito-insert-pair arg "'" "'")))
 (global-set-key (kbd "C-c n") (lambda (arg) (interactive "p") (debugito-insert-pair arg "<" ">")))
+(global-set-key (kbd "C-c v") 'magit-status)
 (global-set-key (kbd "C-x C-h") 'help)
 (global-set-key (kbd "C-c C-j") 'debugito-open-block)
 (global-set-key (kbd "C-x r n") 'debugito-sequence-rectangle)
@@ -238,57 +239,24 @@
                       (rotate-text-backward arg "@")
                     (rotate-text-backward arg ">="))))
 
-
-
 ;; Always-enabled global key setting
 ;; http://pqrs.org/emacs/doc/keyjack-mode/index.html
 ;; http://stackoverflow.com/questions/683425/globally-override-key-binding-in-emacs
 ;;
 ;; kbd macro seems to accept constants only. We have to repeat writing it.
-;; (setq my-keyjack-mode-map (make-sparse-keymap))
-;; (mapcar (lambda (x)
-;;           (define-key my-keyjack-mode-map (car x) (cdr x))
-;;           (global-set-key (car x) (cdr x)))
-;;         `((,(kbd "C-h") . backward-delete-char-untabify)
-;;           (,(kbd "C-x C-h") . help)
-;;           ;; One-touch parentheses, quotes and others
-;;           (,(kbd "C-c h") . (lambda (arg) (interactive "p") (debugito-insert-pair arg "[" "]")))
-;;           (,(kbd "C-c j") . (lambda (arg) (interactive "p") (debugito-insert-pair arg "(" ")")))
-;;           (,(kbd "C-c k") . (lambda (arg) (interactive "p") (debugito-insert-pair arg "{" "}")))
-;;           (,(kbd "C-c l") . (lambda (arg) (interactive "p") (debugito-insert-pair arg "\"" "\"")))
-;;           (,(kbd "C-c ;") . (lambda (arg) (interactive "p") (debugito-insert-pair arg "'" "'")))
-;;           (,(kbd "C-c n") . (lambda (arg) (interactive "p") (debugito-insert-pair arg "<" ">")))
-;;           ;; One-touch opening a block
-;;           (,(kbd "C-c C-j") . debugito-open-block)
-;;           ;; sequential numbering
-;;           (,(kbd "C-x r n" ) . debugito-sequence-rectangle)
-;;           ;; some other settings
-;;           (,(kbd "C-;") . toggle-input-method)
-;;           (,(kbd "C-^") . enlarge-window)
-;;           (,(kbd "C-~") . shrink-window)
-;;           (,(kbd "C-]") . enlarge-window-horizontally)
-;;           (,(kbd "C-}") . shrink-window-horizontally)
-;;           (,(kbd "C-x C-n") . next-multiframe-window)
-;;           (,(kbd "C-x C-p") . previous-multiframe-window)
-;;           (,(kbd "M-i") . complete-symbol)
-;;           (,(kbd "C-.") . ">")
-;;           (,(kbd "C-,") . "<")
-;;           (,(kbd "C--") . "=")
-;;           (,(kbd "C-\\") . "_")
-;;           (,(kbd "M-,") . (lambda () (interactive) (find-tag "" t)))
-;;           (,(kbd "C-o") . (lambda (arg) (interactive "p") (rotate-text arg "$")))
-;;           (,(kbd "C-c C-o") . (lambda (arg) (interactive "p") (rotate-text arg  "->")))
-;;           (,(kbd "C-t") . (lambda (arg) (interactive "p")
-;;                             (if (= arg 1)
-;;                                 (rotate-text-backward arg "@")
-;;                               (rotate-text-backward arg ">="))))
-;;           
-;;           (,(kbd "<C-tab>") . dabbrev-expand)))
-;; 
-;; (define-minor-mode my-keyjack-mode
-;;   "A minor mode so that my key settings override annoying major modes."
-;;   t nil 'my-keyjack-mode-map)
-;; (my-keyjack-mode 1)
+(setq my-keyjack-mode-map (make-sparse-keymap))
+(mapcar (lambda (x)
+          (define-key my-keyjack-mode-map (car x) (cdr x))
+          (global-set-key (car x) (cdr x)))
+        `(;; One-touch opening a block
+          (,(kbd "C-c C-j") . debugito-open-block)
+          ;; sequential numbering
+          (,(kbd "C-c C-o") . (lambda (arg) (interactive "p") (rotate-text arg  "->")))))
+
+(define-minor-mode my-keyjack-mode
+  "A minor mode so that my key settings override annoying major modes."
+  t nil 'my-keyjack-mode-map)
+(my-keyjack-mode 1)
 
 
 ;; ;;;;; for testing...
