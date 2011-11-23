@@ -2,7 +2,7 @@
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/twittering-mode-dev/twittering-mode/")
 (load-library "misc-func")
-(load-library "debug-ito")
+(load-library "debugito")
 
 (setq inhibit-startup-screen t)
 (mouse-wheel-mode 1) ;; Enable wheel mouse
@@ -19,7 +19,7 @@
 
 
 ;;;;;;;;;;;;;; elscreen http://www.morishima.net/~naoto/elscreen-en/?lang=en
-(debug-ito-require-if-any 'elscreen)
+(debugito-require-if-any 'elscreen)
 
 ;;;;;;;;;;;;;; Setting for X mode
 (cond (window-system
@@ -50,7 +50,7 @@
 ;;;;;;;;;;;;;;; anthy
 ;; See http://forum.ubuntulinux.jp/viewtopic.php?pid=773
 ;; Apparently ISO-2022-JP should be used to encode the japanese characters below
-(when (debug-ito-require-if-any 'anthy)
+(when (debugito-require-if-any 'anthy)
   (when (>= emacs-major-version 22)
     (setq anthy-accept-timeout 1))
   (setq default-input-method "japanese-anthy")
@@ -119,15 +119,15 @@
 ;; (setq tex-bibtex-command "bibtex")
 (add-hook 'latex-mode-hook (lambda () (local-set-key (kbd "C-j") 'newline-and-indent)))
 (add-hook 'latex-mode-hook (lambda () (local-set-key (kbd "C-c m") (lambda (arg) (interactive "p")
-                                                                     (debug-ito-insert-pair arg "$" "$")))))
+                                                                     (debugito-insert-pair arg "$" "$")))))
 (add-hook 'latex-mode-hook (lambda () (local-set-key (kbd "C-c i")
                                                      (lambda (arg) (interactive "p")
-                                                       (debug-ito-insert-pair arg "\\color{colmodified}" "\\color{colstayed}")))))
+                                                       (debugito-insert-pair arg "\\color{colmodified}" "\\color{colstayed}")))))
 (add-hook 'latex-mode-hook (lambda () (add-to-list 'tex-compile-commands '("jbibtex %r"))))
 
 ;;;;;;;;;;;;;;;;;; Wanderlust key customization
-(add-hook 'wl-summary-mode-hook (lambda () (local-set-key (kbd "C-d") 'debug-ito-wl-dup-and-show-message)))
-(add-hook 'wl-summary-mode-hook (lambda () (local-set-key (kbd "M-d") 'debug-ito-wl-dup-message-buf)))
+(add-hook 'wl-summary-mode-hook (lambda () (local-set-key (kbd "C-d") 'debugito-wl-dup-and-show-message)))
+(add-hook 'wl-summary-mode-hook (lambda () (local-set-key (kbd "M-d") 'debugito-wl-dup-message-buf)))
 
 ;;;;;;;;;;;;;;;;;; MHC
 (autoload 'mhc-wl-setup "mhc-wl")
@@ -137,12 +137,12 @@
 
 ;;;;;;;;;;;;;;;;;;; For Japanese printing
 ;; See also https://wiki.ubuntulinux.jp/UbuntuTips/Application/EmacsJapanesePrint
-(debug-ito-require-if-any 'ps-mule)
+(debugito-require-if-any 'ps-mule)
 (setq ps-multibyte-buffer 'non-latin-printer)
 (defalias 'ps-mule-header-string-charsets 'ignore)
 
 ;;;;;;;;;;;;;;;;;;;; twittering mode  http://twmode.sourceforge.net/index.html
-(debug-ito-require-if-any 'twittering-mode)
+(debugito-require-if-any 'twittering-mode)
 (setq twittering-icon-mode t)
 (setq twittering-use-master-password t)
 (setq twittering-status-format "%i %s,  %C{%Y/%m/%d %H:%M:%S}:\n%FILL[  ]{%T // %r%R}\n ")
@@ -175,26 +175,26 @@
 
 ;;;;;;;;;;;;;;;;;;; Rotate text
 ;; https://github.com/debug-ito/rotate-text.el
-(debug-ito-require-if-any 'rotate-text)
-(defvar debug-ito-rotate-symbolics
+(debugito-require-if-any 'rotate-text)
+(defvar debugito-rotate-symbolics
   '(("->" "=>" "<=" ">=" ">" "<") ("$" "&" "$$" "\\\\" "%" "@" "$@")))
-(defun debug-ito-rotate-symbolic-characters (original arg)
-  (let ((temp-symbolics debug-ito-rotate-symbolics)
+(defun debugito-rotate-symbolic-characters (original arg)
+  (let ((temp-symbolics debugito-rotate-symbolics)
         replacement)
-    (dolist (symbols debug-ito-rotate-symbolics)
+    (dolist (symbols debugito-rotate-symbolics)
       (or replacement
           (setq replacement (rotate-text-replacement symbols original arg))))
     replacement))
-(add-to-list 'rotate-text-patterns '("[<>]=\\|[-=]?>\\|[\\$%&@<]" debug-ito-rotate-symbolic-characters))
+(add-to-list 'rotate-text-patterns '("[<>]=\\|[-=]?>\\|[\\$%&@<]" debugito-rotate-symbolic-characters))
 
 
 ;;;;;;;;;;;;;;;;;;; Other settings
 ;; http://d.hatena.ne.jp/rubikitch/20090219/sequential_command
-(when (debug-ito-require-if-any 'sequential-command-config)
+(when (debugito-require-if-any 'sequential-command-config)
   (sequential-command-setup-keys))
 
 ;; http://www.emacswiki.org/emacs/sticky.el
-(when (debug-ito-require-if-any 'sticky)
+(when (debugito-require-if-any 'sticky)
   (use-sticky-key 'muhenkan sticky-alist:ja))
 
 
@@ -207,15 +207,15 @@
 ;; (setq parens-require-spaces nil)
 
 
-(global-set-key (kbd "C-c h") (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "[" "]")))
-(global-set-key (kbd "C-c j") (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "(" ")")))
-(global-set-key (kbd "C-c k") (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "{" "}")))
-(global-set-key (kbd "C-c l") (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "\"" "\"")))
-(global-set-key (kbd "C-c ;") (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "'" "'")))
-(global-set-key (kbd "C-c n") (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "<" ">")))
+(global-set-key (kbd "C-c h") (lambda (arg) (interactive "p") (debugito-insert-pair arg "[" "]")))
+(global-set-key (kbd "C-c j") (lambda (arg) (interactive "p") (debugito-insert-pair arg "(" ")")))
+(global-set-key (kbd "C-c k") (lambda (arg) (interactive "p") (debugito-insert-pair arg "{" "}")))
+(global-set-key (kbd "C-c l") (lambda (arg) (interactive "p") (debugito-insert-pair arg "\"" "\"")))
+(global-set-key (kbd "C-c ;") (lambda (arg) (interactive "p") (debugito-insert-pair arg "'" "'")))
+(global-set-key (kbd "C-c n") (lambda (arg) (interactive "p") (debugito-insert-pair arg "<" ">")))
 (global-set-key (kbd "C-x C-h") 'help)
-(global-set-key (kbd "C-c C-j") 'debug-ito-open-block)
-(global-set-key (kbd "C-x r n") 'debug-ito-sequence-rectangle)
+(global-set-key (kbd "C-c C-j") 'debugito-open-block)
+(global-set-key (kbd "C-x r n") 'debugito-sequence-rectangle)
 (global-set-key (kbd "C-x C-n") 'next-multiframe-window)
 (global-set-key (kbd "C-x C-p") 'previous-multiframe-window)
 (global-set-key (kbd "C-h") 'backward-delete-char-untabify)
@@ -252,16 +252,16 @@
 ;;         `((,(kbd "C-h") . backward-delete-char-untabify)
 ;;           (,(kbd "C-x C-h") . help)
 ;;           ;; One-touch parentheses, quotes and others
-;;           (,(kbd "C-c h") . (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "[" "]")))
-;;           (,(kbd "C-c j") . (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "(" ")")))
-;;           (,(kbd "C-c k") . (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "{" "}")))
-;;           (,(kbd "C-c l") . (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "\"" "\"")))
-;;           (,(kbd "C-c ;") . (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "'" "'")))
-;;           (,(kbd "C-c n") . (lambda (arg) (interactive "p") (debug-ito-insert-pair arg "<" ">")))
+;;           (,(kbd "C-c h") . (lambda (arg) (interactive "p") (debugito-insert-pair arg "[" "]")))
+;;           (,(kbd "C-c j") . (lambda (arg) (interactive "p") (debugito-insert-pair arg "(" ")")))
+;;           (,(kbd "C-c k") . (lambda (arg) (interactive "p") (debugito-insert-pair arg "{" "}")))
+;;           (,(kbd "C-c l") . (lambda (arg) (interactive "p") (debugito-insert-pair arg "\"" "\"")))
+;;           (,(kbd "C-c ;") . (lambda (arg) (interactive "p") (debugito-insert-pair arg "'" "'")))
+;;           (,(kbd "C-c n") . (lambda (arg) (interactive "p") (debugito-insert-pair arg "<" ">")))
 ;;           ;; One-touch opening a block
-;;           (,(kbd "C-c C-j") . debug-ito-open-block)
+;;           (,(kbd "C-c C-j") . debugito-open-block)
 ;;           ;; sequential numbering
-;;           (,(kbd "C-x r n" ) . debug-ito-sequence-rectangle)
+;;           (,(kbd "C-x r n" ) . debugito-sequence-rectangle)
 ;;           ;; some other settings
 ;;           (,(kbd "C-;") . toggle-input-method)
 ;;           (,(kbd "C-^") . enlarge-window)

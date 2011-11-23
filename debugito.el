@@ -1,10 +1,10 @@
-(defun debug-ito-require-if-any (feature &optional filename)
+(defun debugito-require-if-any (feature &optional filename)
   (if (require feature filename t)
       t
     (progn (warn "Cannot find and load %s. Skip." feature)
            nil)))
 
-(defun debug-ito-open-block ()
+(defun debugito-open-block ()
   "Open a line for a new block."
   (interactive)
   (let*
@@ -14,17 +14,17 @@
     (newline-and-indent)))
 
 ;; insert-pair
-(defun debug-ito-insert-pair (arg begin-str end-str)
+(defun debugito-insert-pair (arg begin-str end-str)
   "When you use without any prefix argument, this function inserts BEGIN-STR followed by END-STR to the point,
 and moves the point between the two inserted strings.
 With a prefix argument (C-u), BEGIN-STR and END-STR are inserted to the beginning and end of the current region, respectively,
 and the point is moved right after the inserted END-STR."
   (if (= arg 1)
-      (let ((med-point (debug-ito-insert-pair-pos begin-str end-str (point) (point))))
+      (let ((med-point (debugito-insert-pair-pos begin-str end-str (point) (point))))
         (goto-char med-point))
-    (debug-ito-insert-pair-pos begin-str end-str (region-beginning) (region-end))))
+    (debugito-insert-pair-pos begin-str end-str (region-beginning) (region-end))))
 
-(defun debug-ito-insert-pair-pos (begin-str end-str begin-pos end-pos)
+(defun debugito-insert-pair-pos (begin-str end-str begin-pos end-pos)
   (let ((end-pos-mk (make-marker)))
     (set-marker end-pos-mk end-pos)
     (goto-char begin-pos)
@@ -36,19 +36,19 @@ and the point is moved right after the inserted END-STR."
 
 
 ;;; sequential numbering
-(defvar debug-ito-seq-format "%d"
-  "Last format used by `debug-ito-sequence-rectangle'.")
-(defvar debug-ito-seq-number 0 "Number inserted by `debug-ito-sequence-rectangle'")
+(defvar debugito-seq-format "%d"
+  "Last format used by `debugito-sequence-rectangle'.")
+(defvar debugito-seq-number 0 "Number inserted by `debugito-sequence-rectangle'")
 (autoload 'apply-on-rectangle "rect")
-(defun debug-ito-sequence-rectangle-line (startcol endcol incr format)
+(defun debugito-sequence-rectangle-line (startcol endcol incr format)
   (move-to-column startcol t)
   (delete-rectangle-line startcol endcol nil)
-  (insert (format format debug-ito-seq-number))
-  (setq debug-ito-seq-number (+ debug-ito-seq-number incr)))
+  (insert (format format debugito-seq-number))
+  (setq debugito-seq-number (+ debugito-seq-number incr)))
 
-(defun debug-ito-sequence-rectangle (start end first incr format)
+(defun debugito-sequence-rectangle (start end first incr format)
   "Combining string-rectangle from rect.el and cua-sequence-rectangle from cua-rect.el,
-debug-ito-sequence-rectangle does exactly the same job as cua-sequence-rectangle, although its UI is
+debugito-sequence-rectangle does exactly the same job as cua-sequence-rectangle, although its UI is
 much more like string-rectangle.
 You may want to bind a key sequence `C-x r n' or something to this command."
   (interactive
@@ -60,21 +60,21 @@ You may want to bind a key sequence `C-x r n' or something to this command."
             (read-string "Start value: (1) " nil nil "1")))
          (string-to-number
           (read-string "Increment: (1) " nil nil "1"))
-         (read-string (concat "Format: (" debug-ito-seq-format ") "))))
+         (read-string (concat "Format: (" debugito-seq-format ") "))))
   (if (= (length format) 0)
-      (setq format debug-ito-seq-format)
-    (setq debug-ito-seq-format format))
-  (setq debug-ito-seq-number first)
-  (apply-on-rectangle 'debug-ito-sequence-rectangle-line start end incr format))
+      (setq format debugito-seq-format)
+    (setq debugito-seq-format format))
+  (setq debugito-seq-number first)
+  (apply-on-rectangle 'debugito-sequence-rectangle-line start end incr format))
 
-(defun debug-ito-anthy-kutouten ()
+(defun debugito-anthy-kutouten ()
   "Change Hiragana map so that kutouten are zenkaku comma and period."
   (interactive)
   (anthy-change-hiragana-map "," "，")
   (anthy-change-hiragana-map "." "．"))
 
 
-(defun debug-ito-wl-dup-message-buf ()
+(defun debugito-wl-dup-message-buf ()
   "In Wanderlust, create a buffer which is a duplicate of the message on which the cursor is in the Summary."
   (interactive)
   (let (wbuf newbuffer)
@@ -87,10 +87,10 @@ You may want to bind a key sequence `C-x r n' or something to this command."
     (message (format "Message was duplicated to %s." newbuffer))
     newbuffer))
 
-(defun debug-ito-wl-dup-and-show-message ()
+(defun debugito-wl-dup-and-show-message ()
   "In Wanderlust, create a duplicate buffer of a message and show it in a new window."
   (interactive)
-  (let ((newbuffer (debug-ito-wl-dup-message-buf))
+  (let ((newbuffer (debugito-wl-dup-message-buf))
         (newwindow nil))
     (set-buffer "Summary")
     (wl-summary-toggle-disp-msg 'off)
