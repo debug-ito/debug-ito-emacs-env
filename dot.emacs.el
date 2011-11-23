@@ -3,7 +3,7 @@
 (add-to-list 'load-path "~/.emacs.d/twittering-mode-dev/twittering-mode/")
 (load-library "debugito")
 (debugito-load-if-any "misc-func")
-
+(debugito-load-if-any "local" t)
 
 (setq inhibit-startup-screen t)
 (mouse-wheel-mode 1) ;; Enable wheel mouse
