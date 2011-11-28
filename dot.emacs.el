@@ -92,6 +92,10 @@
                                    (anthy-hiragana-map)))))
 
 
+;; Table.el
+(custom-set-faces
+ '(table-cell ((t (:background "yellow2" :inverse-video nil)))))
+
 ;;;;;;;;;;;;; shell mode
 ;; ls --color works well in the shell mode
 ;; You also have to modify .bashrc so that it runs dircolors
@@ -273,4 +277,3 @@
 ;;              nil
 ;;              '(("\\<\\(\\sw+\\) ?(" 1 font-lock-function-call-face)) t)))
 ;; 
-
