@@ -228,6 +228,7 @@
 (global-set-key (kbd "C-x r n") 'debugito-sequence-rectangle)
 (global-set-key (kbd "C-x C-n") 'next-multiframe-window)
 (global-set-key (kbd "C-x C-p") 'previous-multiframe-window)
+(global-set-key (kbd "C-x l"  ) 'font-lock-fontify-buffer)
 (global-set-key (kbd "C-h") 'backward-delete-char-untabify)
 (global-set-key (kbd "C-;") 'toggle-input-method)
 (global-set-key (kbd "C-^") 'enlarge-window)
