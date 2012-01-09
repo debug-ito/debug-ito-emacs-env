@@ -22,6 +22,12 @@
 ;;;;;;;;;;;;;; elscreen http://www.morishima.net/~naoto/elscreen-en/?lang=en
 (debugito-require-if-any 'elscreen)
 
+
+;;;;;;;;;;;;;; uniquify
+(when (debugito-require-if-any 'uniquify)
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
+
+
 ;;;;;;;;;;;;;; Setting for X mode
 (cond (window-system
        ;; .emacsでのフォント設定でうまくいかないときは~/.Xresourcesで設定してみる
