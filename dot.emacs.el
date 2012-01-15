@@ -27,6 +27,11 @@
 (when (debugito-require-if-any 'uniquify)
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
+;;;;;;;;;;;;;; popwin
+;;;;;;;;; https://github.com/m2ym/popwin-el
+(when (debugito-require-if-any 'popwin)
+  (setq display-buffer-function 'popwin:display-buffer))
+
 
 ;;;;;;;;;;;;;; Setting for X mode
 (cond (window-system
