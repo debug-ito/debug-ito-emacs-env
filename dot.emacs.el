@@ -207,7 +207,12 @@
 (defun debugito-rotate-type-2 (arg default-str)
   (unless (= arg 1) (setq arg -1))
   (rotate-text arg default-str nil nil '(("[<>]=\\|[-=]?>\\|[<@%&]" debugito-rotate-symbolic-characters))))
-(debugito-require-if-any 'rotate-text)
+(when (debugito-require-if-any 'rotate-text)
+  (custom-set-variables
+   '(rotate-text-patterns nil)
+   '(rotate-text-symbols nil)
+   '(rotate-text-words nil)))
+
 
 ;;;;;;;;;;;;;;;;;;; Other settings
 ;; http://d.hatena.ne.jp/rubikitch/20090219/sequential_command
