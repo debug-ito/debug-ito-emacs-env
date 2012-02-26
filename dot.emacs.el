@@ -30,7 +30,8 @@
 ;;;;;;;;;;;;;; popwin
 ;;;;;;;;; https://github.com/m2ym/popwin-el
 (when (debugito-require-if-any 'popwin)
-  (setq display-buffer-function 'popwin:display-buffer))
+  (setq display-buffer-function 'popwin:display-buffer)
+  (add-to-list  'popwin:special-display-config '("*tex-shell*" :noselect t)))
 
 
 ;;;;;;;;;;;;;; Setting for X mode
@@ -134,13 +135,24 @@
 (setq tex-bibtex-command "jbibtex")
 ;; (setq latex-run-command "latex")
 ;; (setq tex-bibtex-command "bibtex")
-(add-hook 'latex-mode-hook (lambda () (local-set-key (kbd "C-j") 'newline-and-indent)))
-(add-hook 'latex-mode-hook (lambda () (local-set-key (kbd "C-c m") (lambda (arg) (interactive "p")
-                                                                     (debugito-insert-pair arg "$" "$")))))
-(add-hook 'latex-mode-hook (lambda () (local-set-key (kbd "C-c i")
-                                                     (lambda (arg) (interactive "p")
-                                                       (debugito-insert-pair arg "\\color{colmodified}" "\\color{colstayed}")))))
-(add-hook 'latex-mode-hook (lambda () (add-to-list 'tex-compile-commands '("jbibtex %r"))))
+(add-hook 'latex-mode-hook (lambda ()
+                             (defun tex-display-shell ()
+                               (display-buffer (tex-shell-buf)))
+                             (local-set-key (kbd "C-j") 'newline-and-indent)
+                             (local-set-key (kbd "C-c m")
+                                            (lambda (arg) (interactive "p")
+                                              (debugito-insert-pair arg "$" "$")))
+                             (local-set-key (kbd "C-c i")
+                                            (lambda (arg) (interactive "p")
+                                              (debugito-insert-pair arg "\\color{colmodified}" "\\color{colstayed}")))
+                             (local-set-key (kbd "C-c o") 'latex-insert-block)
+                             (add-to-list 'tex-compile-commands '("jbibtex %r"))))
+
+;;;;;;;;;;;;;;;;;; Skeleton read
+;; http://d.hatena.ne.jp/emacsjjj/20060222/p1
+(defadvice skeleton-read (around unbind-c-h activate compile)
+  (let ((help-char nil))
+    ad-do-it))
 
 ;;;;;;;;;;;;;;;;;; Wanderlust key customization
 (add-hook 'wl-summary-mode-hook (lambda () (local-set-key (kbd "C-d") 'debugito-wl-dup-and-show-message)))
