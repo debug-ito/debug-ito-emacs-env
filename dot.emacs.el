@@ -184,7 +184,8 @@
       cperl-continued-statement-offset 4
       cperl-indent-level 4
       cperl-indent-parens-as-block t
-      cperl-indent-region-fix-constructs nil)
+      cperl-indent-region-fix-constructs nil
+      cperl-electric-parens nil)
 ;; Forbid ugly special color theme. Standard theme is the most beautiful.
 (copy-face font-lock-variable-name-face 'cperl-array-face)
 (copy-face font-lock-variable-name-face 'cperl-hash-face)
