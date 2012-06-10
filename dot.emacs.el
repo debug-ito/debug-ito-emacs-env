@@ -176,6 +176,12 @@
 (setq twittering-use-master-password t)
 (setq twittering-status-format "%i %s,  %C{%Y/%m/%d %H:%M:%S}:\n%FILL[  ]{%T // %r%R}\n ")
 
+;;;;;;;;;;;;;;;;;;;; Magit
+(defadvice magit-status (around magit-status-full-window activate)
+  (let ((pop-up-windows nil))
+    ad-do-it))
+
+
 ;;;;;;;;;;;;;; (C)Perl mode
 ;; http://www.emacswiki.org/emacs/CPerlMode
 (defalias 'perl-mode 'cperl-mode)
