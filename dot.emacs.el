@@ -209,31 +209,6 @@
 ;;                         '(("&[a-zA-Z_0-9]*" 0  font-lock-function-call-face))
 ;;                         nil)))
 
-;;;;;;;;;;;;;;;;;;; Rotate text
-;; https://github.com/debug-ito/rotate-text.el
-(defvar debugito-rotate-symbolics
-  '(("->" "=>" ">=" "<=" ">" "<") ("$" "\\" "\\$" "\\\\" "$$") ("@" "%" "&")))
-(defun debugito-rotate-symbolic-characters (original arg)
-  (let (replacement)
-    (dolist (symbols debugito-rotate-symbolics)
-      (or replacement
-          (setq replacement (rotate-text-replacement symbols original arg))))
-    replacement))
-;; (when (debugito-require-if-any 'rotate-text)
-;;   (add-to-list 'rotate-text-patterns '("[<>]=\\|[-=]?>\\|[\\$%&@<]" debugito-rotate-symbolic-characters)))
-(defun debugito-rotate-type-1 (arg default-str)
-  (unless (= arg 1) (setq arg -1))
-  (rotate-text arg default-str nil nil '(("[<>]=\\|[-=]?>\\|\\\\?[<\\$\\\\]" debugito-rotate-symbolic-characters))))
-(defun debugito-rotate-type-2 (arg default-str)
-  (unless (= arg 1) (setq arg -1))
-  (rotate-text arg default-str nil nil '(("[<>]=\\|[-=]?>\\|[<@%&]" debugito-rotate-symbolic-characters))))
-(when (debugito-require-if-any 'rotate-text)
-  (custom-set-variables
-   '(rotate-text-patterns nil)
-   '(rotate-text-symbols nil)
-   '(rotate-text-words nil)))
-
-
 ;;;;;;;;;;;;;;;;;;; Other settings
 ;; http://d.hatena.ne.jp/rubikitch/20090219/sequential_command
 (when (debugito-require-if-any 'sequential-command-config)
@@ -280,11 +255,11 @@
 (global-set-key (kbd "C--") "=")
 (global-set-key (kbd "C-\\") "_")
 (global-set-key (kbd "M-,") (lambda () (interactive) (find-tag "" t)))
-(global-set-key (kbd "C-o") (lambda (arg) (interactive "p") (debugito-rotate-type-1 arg "$")))
+(global-set-key (kbd "C-o") (lambda () (interactive) (debugito-rot-input debugito-rot-dollar "debugito-rot-CO")))
 (global-set-key (kbd "C-t") (lambda (arg) (interactive "p")
                   (if (= arg 1)
-                      (debugito-rotate-type-2 arg "@")
-                    (debugito-rotate-type-2 arg ">="))))
+                      (debugito-rot-input debugito-rot-othersigils "debugito-rot-CT")
+                    (debugito-rot-input debugito-rot-arrow "debugito-rot-CT" 2))))
 
 ;; Always-enabled global key setting
 ;; http://pqrs.org/emacs/doc/keyjack-mode/index.html
@@ -298,7 +273,7 @@
         `(;; One-touch opening a block
           (,(kbd "C-c C-j") . debugito-open-block)
           ;; sequential numbering
-          (,(kbd "C-c C-o") . (lambda (arg) (interactive "p") (debugito-rotate-type-1 arg  "->")))))
+          (,(kbd "C-c C-o") . (lambda () (interactive) (debugito-rot-input debugito-rot-arrow "debugito-rot-CO")))))
 
 (define-minor-mode my-keyjack-mode
   "A minor mode so that my key settings override annoying major modes."

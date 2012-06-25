@@ -81,6 +81,51 @@ You may want to bind a key sequence `C-x r n' or something to this command."
   (setq debugito-seq-number first)
   (apply-on-rectangle 'debugito-sequence-rectangle-line start end incr format))
 
+;; rotational input
+(defvar debugito-rot-dollar '(("$" . 1) ("\\" . 1) ("\\$" . 2) ("\\\\" . 2) ("$" . 0)))
+(defvar debugito-rot-arrow '(("->" . 2) ("=>" . 2) (">=" . 2) ("<=" . 2) (">" . 1) ("<" . 1)))
+(defvar debugito-rot-othersigils '(("@" . 1) ("%" . 1) ("&" . 1)))
+
+(defvar debugito-rot-current-list nil)
+(defvar debugito-rot-previous-elem nil)
+(defun debugito-rot-input (input-list &optional comm-name start-index)
+  "Inserts different strings every time this function is executed repeatedly.
+
+INPUT-LIST is a list of cons cells that describes rotational input you want to perform.
+In a cons cell in INPUT-LIST, its car is the string you want to insert and its cdr is the
+number of characters that are to be deleted before inserting the next string.
+When you execute this function repeatedly from the same command (or with the same COMM-NAME
+parameter), the string elements in INPUT-LIST are inserted and deleted in turn.
+
+COMM-NAME will be set to `this-command' variable, and it is used to determine whether
+this execution of the function is the first time or not. If it's not the first time,
+`debugito-rot-input' will input the next element of the previously provided INPUT-LIST.
+If COMM-NAME is omitted, `this-command' variable remains unchanged.
+
+START-INDEX is the index of the element in INPUT-LIST that you want to insert at the
+first execution of this function. It must be equal or greater than 0 and less than the
+length of INPUT-LIST.
+
+See Also: rotate-text.el http://www.emacswiki.org/RotateText
+  rotate-text provides similar functionality. The important difference is, however,
+  rotate-text rotates a string that is already on the buffer. This behavior is sometimes
+  confusing, especially when my intention is to insert a new string instead of modify
+  the existing one."
+  (unless start-index
+    (setq start-index 0))
+  (when comm-name
+    (setq this-command comm-name))
+  (unless (equal this-command last-command)
+    (setq debugito-rot-current-list input-list)
+    (setq debugito-rot-previous-elem nil))
+  (let ((cur-elem (or (cdr debugito-rot-previous-elem)
+                      (subseq debugito-rot-current-list start-index))))
+    (when debugito-rot-previous-elem
+      (backward-delete-char (cdr (car debugito-rot-previous-elem))))
+    (insert (car (car cur-elem)))
+    (setq debugito-rot-previous-elem cur-elem)))
+
+
 (defun debugito-anthy-kutouten ()
   "Change Hiragana map so that kutouten are zenkaku comma and period."
   (interactive)
