@@ -244,6 +244,7 @@
 (global-set-key (kbd "C-x l"  ) 'font-lock-fontify-buffer)
 (global-set-key (kbd "C-h") 'backward-delete-char-untabify)
 (global-set-key (kbd "C-;") 'toggle-input-method)
+(global-set-key (kbd "M-j") 'toggle-input-method)
 (global-set-key (kbd "C-^") 'enlarge-window)
 (global-set-key (kbd "C-~") 'shrink-window)
 (global-set-key (kbd "C-]") 'enlarge-window-horizontally)
