@@ -209,15 +209,15 @@
 ;;                         '(("&[a-zA-Z_0-9]*" 0  font-lock-function-call-face))
 ;;                         nil)))
 
+
+;;;;;;;;;;;;;;;;;;; Javascript mode
+(setq js-auto-indent-flag nil)
+
+
 ;;;;;;;;;;;;;;;;;;; Other settings
 ;; http://d.hatena.ne.jp/rubikitch/20090219/sequential_command
 (when (debugito-require-if-any 'sequential-command-config)
   (sequential-command-setup-keys))
-
-;; http://www.emacswiki.org/emacs/sticky.el
-(when (debugito-require-if-any 'sticky)
-  (use-sticky-key 'muhenkan sticky-alist:ja))
-
 
 ;;;;;;;;;;;;; Key customization
 
