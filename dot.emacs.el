@@ -184,6 +184,7 @@
 
 ;;;;;;;;;;;;;; (C)Perl mode
 ;; http://www.emacswiki.org/emacs/CPerlMode
+;; https://github.com/jrockway/cperl-mode
 (defalias 'perl-mode 'cperl-mode)
 (setq cperl-invalid-face nil
       cperl-close-paren-offset -4
@@ -191,7 +192,8 @@
       cperl-indent-level 4
       cperl-indent-parens-as-block t
       cperl-indent-region-fix-constructs nil
-      cperl-electric-parens nil)
+      cperl-electric-parens nil
+      cperl-indent-subs-specially nil)
 ;; Forbid ugly special color theme. Standard theme is the most beautiful.
 (copy-face font-lock-variable-name-face 'cperl-array-face)
 (copy-face font-lock-variable-name-face 'cperl-hash-face)
