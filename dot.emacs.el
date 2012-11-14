@@ -193,7 +193,9 @@
       cperl-indent-parens-as-block t
       cperl-indent-region-fix-constructs nil
       cperl-electric-parens nil
-      cperl-indent-subs-specially nil)
+      cperl-indent-subs-specially nil
+      cperl-auto-newline nil
+      cperl-electric-backspace-untabify nil)
 ;; Forbid ugly special color theme. Standard theme is the most beautiful.
 (copy-face font-lock-variable-name-face 'cperl-array-face)
 (copy-face font-lock-variable-name-face 'cperl-hash-face)
