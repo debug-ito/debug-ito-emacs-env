@@ -186,6 +186,7 @@
 ;; http://www.emacswiki.org/emacs/CPerlMode
 ;; https://github.com/jrockway/cperl-mode
 (defalias 'perl-mode 'cperl-mode)
+(add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
 (setq cperl-invalid-face nil
       cperl-close-paren-offset -4
       cperl-continued-statement-offset 4
