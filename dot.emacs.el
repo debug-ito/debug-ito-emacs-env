@@ -6,7 +6,6 @@
 (debugito-load-if-any "local" t)
 
 (setq inhibit-startup-screen t)
-(mouse-wheel-mode 1) ;; Enable wheel mouse
 (global-font-lock-mode t) ;; Syntax Highlighting
 (setq line-number-mode t) ;; show Line Number
 (auto-compression-mode t) ;; prevent mojibake of Japanese info
@@ -41,6 +40,7 @@
        (set-scroll-bar-mode 'right) ;; show scroll bar on the right side
        (menu-bar-mode 0) ;; Disable menu-bar
        (tool-bar-mode 0) ;; Disable tool-bar
+       (mouse-wheel-mode 1) ;; Enable wheel mouse
        (setq x-select-enable-clipboard t) ;; Share kill-ring and X clipboard
        (add-to-list 'default-frame-alist '(height . 26))
        (add-to-list 'default-frame-alist '(width .  128))))
