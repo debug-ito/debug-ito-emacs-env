@@ -21,11 +21,10 @@ is suppressed."
 (defun debugito-open-block ()
   "Open a line for a new block."
   (interactive)
-  (let*
-      ((startpos (point)))
-    (newline-and-indent)
-    (goto-char startpos)
-    (newline-and-indent)))
+  (newline-and-indent)
+  (forward-line -1)
+  (end-of-line)
+  (newline-and-indent))
 
 ;; insert-pair
 (defun debugito-insert-pair (arg begin-str end-str)
