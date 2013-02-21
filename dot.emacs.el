@@ -218,7 +218,7 @@
 ;;;;;;;;;;;;;;;;;;;;; Ruby mode
 (add-hook 'ruby-mode-hook
           (lambda ()
-            (local-set-key (kbd "C-c C-n")
+            (local-set-key (kbd "C-c n")
                            (lambda (arg) (interactive "p")
                              (debugito-insert-pair arg "" "end")))
             (local-set-key (kbd "C-c m")
