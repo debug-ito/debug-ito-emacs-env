@@ -187,6 +187,7 @@
 ;; https://github.com/jrockway/cperl-mode
 (defalias 'perl-mode 'cperl-mode)
 (add-to-list 'auto-mode-alist '("\\.t\\'" . perl-mode))
+(add-to-list 'auto-mode-alist '("\\.psgi\\'" . perl-mode))
 (setq cperl-invalid-face nil
       cperl-close-paren-offset -4
       cperl-continued-statement-offset 4
