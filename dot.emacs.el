@@ -120,6 +120,20 @@
 (setq comint-password-prompt-regexp "\\(\\([Oo]ld \\|[Nn]ew \\|'s \\|login \\|Kerberos \\|CVS \\|UNIX \\| SMB \\|^\\|\\[sudo\\] \\)[Pp]assword\\( (again)\\)?\\|pass phrase\\|\\(Enter\\|Repeat\\|Bad\\) passphrase\\)\\(?:, try again\\)?\\(?: for [^:]+\\)?:\\s *\\'")
 (setq shell-completion-fignore '(".svn/"))
 
+;; track current working directory based on /proc fs
+;; http://www.emacswiki.org/emacs/ShellDirtrackByProcfs
+(defun track-shell-directory/procfs ()
+  (shell-dirtrack-mode 0)
+  (add-hook 'comint-preoutput-filter-functions
+            (lambda (str)
+              (prog1 str
+                (when (string-match comint-prompt-regexp str)
+                  (cd (file-symlink-p
+                       (format "/proc/%s/cwd" (process-id
+                                               (get-buffer-process
+                                                (current-buffer)))))))))
+            nil t))
+(add-hook 'shell-mode-hook 'track-shell-directory/procfs)
 
 ;;;;;;;;;;;;;;;; Add NesC mode autoload feature
 ;; You have to place nesc.el provided by nesc package in wherever emacs can find it.
