@@ -80,6 +80,8 @@ You may want to bind a key sequence `C-x r n' or something to this command."
   (setq debugito-seq-number first)
   (apply-on-rectangle 'debugito-sequence-rectangle-line start end incr format))
 
+(require 'cl)  ;; for subseq function
+
 ;; rotational input
 (defvar debugito-rot-dollar '(("$" . 1) ("\\" . 1) ("\\$" . 2) ("\\\\" . 2) ("$" . 0)))
 (defvar debugito-rot-arrow '(("->" . 2) ("=>" . 2) (">=" . 2) ("<=" . 2) (">" . 1) ("<" . 1)))
