@@ -60,49 +60,9 @@
 ; 辞書変更にはispell-change-dictionaryを使う
 (setq-default ispell-program-name "aspell")
 
-;;;;;;;;;;;;;;; anthy
-;; See http://forum.ubuntulinux.jp/viewtopic.php?pid=773
-;; Apparently ISO-2022-JP should be used to encode the japanese characters below
-(when (debugito-require-if-any 'anthy)
-  (when (>= emacs-major-version 22)
-    (setq anthy-accept-timeout 1))
-  (setq default-input-method "japanese-anthy")
-  (setq anthy-wide-space " ")
-  (anthy-change-hiragana-map "la" "ぁ")
-  (anthy-change-hiragana-map "li" "ぃ")
-  (anthy-change-hiragana-map "lu" "ぅ")
-  (anthy-change-hiragana-map "le" "ぇ")
-  (anthy-change-hiragana-map "lo" "ぉ")
-  (anthy-change-hiragana-map "ltu" "っ")
-  (anthy-change-hiragana-map "lya" "ゃ")
-  (anthy-change-hiragana-map "lyu" "ゅ")
-  (anthy-change-hiragana-map "lyo" "ょ")
-  (anthy-change-hiragana-map "cj" "・")
-  (anthy-change-katakana-map "la" "ァ")
-  (anthy-change-katakana-map "li" "ィ")
-  (anthy-change-katakana-map "lu" "ゥ")
-  (anthy-change-katakana-map "le" "ェ")
-  (anthy-change-katakana-map "lo" "ォ")
-  (anthy-change-katakana-map "ltu" "ッ")
-  (anthy-change-katakana-map "lya" "ャ")
-  (anthy-change-katakana-map "lyu" "ュ")
-  (anthy-change-katakana-map "lyo" "ョ")
-  (anthy-change-katakana-map "cj" "・")
-  ;; Change keybind for chainging maps
-  ;; http://ubulog.blogspot.com/2009/02/emacsanthyel.html
-  (setq anthy-rkmap-keybind
-        '((("alphabet" . ?\C-j) . "hiragana")
-          (("hiragana" . ?\C-j) . "alphabet")
-          (("hiragana" . ?q) . "katakana")
-          (("katakana" . ?q) . "hiragana")
-          (("hiragana"     . ?\C-q) . "hankaku_kana")
-          (("hankaku_kana" . ?\C-q) . "walphabet")
-          (("walphabet" . ?\C-q) . "hiragana")))
-  ;; Immediately return to Hiragana mode after commiting Katakanas.
-  (add-hook 'anthy-commit-hook (lambda ()
-                                 (when (string= "katakana" anthy-current-rkmap)
-                                   (anthy-hiragana-map)))))
-
+;;;;;;;;;;;;;;; mozc
+(when (debugito-require-if-any 'mozc)
+  (setq default-input-method "japanese-mozc"))
 
 ;; Table.el
 (custom-set-faces
