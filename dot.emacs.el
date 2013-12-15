@@ -56,6 +56,10 @@
 ;; Octave mode
 (add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode))
 
+;; Set markdown mode for .md files
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+
 ;; Use aspell
 ; 辞書変更にはispell-change-dictionaryを使う
 (setq-default ispell-program-name "aspell")
