@@ -56,10 +56,6 @@
 ;; Octave mode
 (add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode))
 
-;; Set markdown mode for .md files
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
-
 ;; Use aspell
 ; 辞書変更にはispell-change-dictionaryを使う
 (setq-default ispell-program-name "aspell")
@@ -126,7 +122,7 @@
                              (local-set-key (kbd "C-c o") 'latex-insert-block)
                              (add-to-list 'tex-compile-commands '("jbibtex %r"))))
 
-;;;;;;;;;;;;;;;;;; Skeleton read
+;;;;;;;;;;;;;;;;;; Skeleton read to enable C-h as delete in incremental search
 ;; http://d.hatena.ne.jp/emacsjjj/20060222/p1
 (defadvice skeleton-read (around unbind-c-h activate compile)
   (let ((help-char nil))
@@ -159,6 +155,9 @@
   (let ((pop-up-windows nil))
     ad-do-it))
 
+;;;;;;;;;;;;;;;;;;;; markdown mode
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-hook 'markdown-mode-hook (lambda () (local-set-key (kbd "C-m") 'newline)))
 
 ;;;;;;;;;;;;;; (C)Perl mode
 ;; http://www.emacswiki.org/emacs/CPerlMode
