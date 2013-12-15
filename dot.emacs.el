@@ -1,6 +1,5 @@
 ;; Save this file in ISO-2022-JP because it is the coding system for Anthy!
 (add-to-list 'load-path "~/.emacs.d")
-(add-to-list 'load-path "~/.emacs.d/twittering-mode-dev/twittering-mode/")
 (load-library "debugito")
 (debugito-load-if-any "misc-func")
 (debugito-load-if-any "local" t)
@@ -143,12 +142,6 @@
 (debugito-require-if-any 'ps-mule)
 (setq ps-multibyte-buffer 'non-latin-printer)
 (defalias 'ps-mule-header-string-charsets 'ignore)
-
-;;;;;;;;;;;;;;;;;;;; twittering mode  http://twmode.sourceforge.net/index.html
-(debugito-require-if-any 'twittering-mode)
-(setq twittering-icon-mode t)
-(setq twittering-use-master-password t)
-(setq twittering-status-format "%i %s,  %C{%Y/%m/%d %H:%M:%S}:\n%FILL[  ]{%T // %r%R}\n ")
 
 ;;;;;;;;;;;;;;;;;;;; Magit
 (defadvice magit-status (around magit-status-full-window activate)
