@@ -153,6 +153,11 @@
 (add-hook 'markdown-mode-hook (lambda () (local-set-key (kbd "C-m") 'newline)))
 (add-hook 'markdown-mode-hook (lambda () (setq word-wrap t)))
 
+;;;;;;;;;;;;;;;;;;;; Doxymacs
+(when (debugito-require-if-any 'doxymacs)
+  (add-hook 'c-mode-common-hook 'doxymacs-mode)
+  (add-hook 'js-mode-hook 'doxymacs-mode))
+
 ;;;;;;;;;;;;;; (C)Perl mode
 ;; http://www.emacswiki.org/emacs/CPerlMode
 ;; https://github.com/jrockway/cperl-mode
