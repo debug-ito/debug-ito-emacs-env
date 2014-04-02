@@ -208,6 +208,16 @@
 ;;;;;;;;;;;;;;;;;;; Javascript mode
 (setq js-auto-indent-flag nil)
 
+;;;;;;;;;;;;;;;;;;; Haskell mode
+(setq haskell-mode-hook
+      '(turn-on-haskell-indentation
+        turn-on-haskell-doc-mode
+        turn-on-haskell-decl-scan
+        turn-on-font-lock
+        (lambda ()
+          (define-key haskell-indentation-mode-map (kbd "C-j") 'haskell-newline-and-indent)
+          (define-key haskell-indentation-mode-map (kbd "RET") 'newline))))
+
 
 ;;;;;;;;;;;;;;;;;;; Other settings
 ;; http://d.hatena.ne.jp/rubikitch/20090219/sequential_command
