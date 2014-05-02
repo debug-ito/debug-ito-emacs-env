@@ -12,7 +12,7 @@
 (show-paren-mode t) ;; Emphasize matching parentheses
 (setq-default indent-tabs-mode nil) ;; Never use tabs for indentation
 (setq-default column-number-mode t)
-(transient-mark-mode nil)
+(transient-mark-mode 0)
 (setq tags-revert-without-query t)
 (server-start)
 
