@@ -176,14 +176,14 @@
       cperl-indent-subs-specially nil
       cperl-auto-newline nil
       cperl-electric-backspace-untabify nil)
-;; Forbid ugly special color theme. Standard theme is the most beautiful.
-(copy-face font-lock-variable-name-face 'cperl-array-face)
-(copy-face font-lock-variable-name-face 'cperl-hash-face)
-(copy-face font-lock-keyword-face       'cperl-nonoverridable-face)
 (add-hook 'cperl-mode-hook
           (lambda ()
             (local-set-key (kbd "M-m") (lambda () (interactive) (insert "my ")))
-            (local-set-key (kbd "<tab>") 'indent-for-tab-command)))
+            (local-set-key (kbd "<tab>") 'indent-for-tab-command)
+            ;; Forbid ugly special color theme. Standard theme is the most beautiful.
+            (copy-face 'font-lock-variable-name-face 'cperl-array-face)
+            (copy-face 'font-lock-variable-name-face 'cperl-hash-face)
+            (copy-face 'font-lock-keyword-face       'cperl-nonoverridable-face)))
 
 ;;;; It seems that CPerl mode messes up with font-lock-keywords variable when
 ;;;; you use font-lock-add-keywords to add custom patterns for font-lock.
