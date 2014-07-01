@@ -16,9 +16,9 @@
 (setq tags-revert-without-query t)
 (server-start)
 
-
 ;;;;;;;;;;;;;; elscreen http://www.morishima.net/~naoto/elscreen-en/?lang=en
-(debugito-require-if-any 'elscreen)
+(when (debugito-require-if-any 'elscreen)
+  (elscreen-start))
 
 
 ;;;;;;;;;;;;;; uniquify
