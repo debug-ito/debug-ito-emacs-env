@@ -16,6 +16,8 @@
 (setq-default column-number-mode t)
 (transient-mark-mode 0)
 (setq tags-revert-without-query t)
+(setq-default bidi-display-reording nil)
+(setq-default bidi-paragraph-direction 'left-to-right)
 (server-start)
 
 ;;;;;;;;;;;;;; elscreen http://www.morishima.net/~naoto/elscreen-en/?lang=en
