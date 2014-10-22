@@ -2,6 +2,8 @@
 (add-to-list 'load-path "~/.emacs.d")
 (load-library "debugito")
 (debugito-load-if-any "misc-func")
+(setq debugito-frame-width 128)
+(setq debugito-frame-height 26)
 (debugito-load-if-any "local" t)
 
 (setq inhibit-startup-screen t)
@@ -41,8 +43,8 @@
        (tool-bar-mode 0) ;; Disable tool-bar
        (mouse-wheel-mode 1) ;; Enable wheel mouse
        (setq x-select-enable-clipboard t) ;; Share kill-ring and X clipboard
-       (add-to-list 'default-frame-alist '(height . 26))
-       (add-to-list 'default-frame-alist '(width .  128))))
+       (add-to-list 'default-frame-alist (cons 'height debugito-frame-height))
+       (add-to-list 'default-frame-alist (cons 'width debugito-frame-width))))
 
 ;; Setting for sensible split
 ;; see Help "split-window-sensibly"
