@@ -133,12 +133,6 @@
 (add-hook 'wl-summary-mode-hook (lambda () (local-set-key (kbd "C-d") 'debugito-wl-dup-and-show-message)))
 (add-hook 'wl-summary-mode-hook (lambda () (local-set-key (kbd "M-d") 'debugito-wl-dup-message-buf)))
 
-;;;;;;;;;;;;;;;;;; MHC
-(autoload 'mhc-wl-setup "mhc-wl")
-(add-hook 'wl-init-hook 'mhc-wl-setup)
-(setq mhc-base-folder "+schedule")
-(setq mhc-mail-path   (expand-file-name "~/Mail"))
-
 ;;;;;;;;;;;;;;;;;;; For Japanese printing
 ;; See also https://wiki.ubuntulinux.jp/UbuntuTips/Application/EmacsJapanesePrint
 (debugito-require-if-any 'ps-mule)
