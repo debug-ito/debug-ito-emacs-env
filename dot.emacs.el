@@ -236,6 +236,7 @@
 (global-set-key (kbd "C-c l") (lambda (arg) (interactive "p") (debugito-insert-pair arg "\"" "\"")))
 (global-set-key (kbd "C-c ;") (lambda (arg) (interactive "p") (debugito-insert-pair arg "'" "'")))
 (global-set-key (kbd "C-c n") (lambda (arg) (interactive "p") (debugito-insert-pair arg "<" ">")))
+(global-set-key (kbd "C-c o") (lambda (arg) (interactive "p") (debugito-insert-pair arg "`" "`")))
 (global-set-key (kbd "C-c p") 'popwin:display-last-buffer)
 (global-set-key (kbd "C-c v") 'magit-status)
 (global-set-key (kbd "C-x C-h") 'help)
