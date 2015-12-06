@@ -285,6 +285,8 @@
 (my-keyjack-mode 1)
 
 
+(debugito-load-if-any "local-after" t)
+
 ;; ;;;;; for testing...
 ;; ;; http://www.jrh.org/dotemacs.html
 ;; (defface font-lock-function-call-face
