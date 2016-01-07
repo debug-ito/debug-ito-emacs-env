@@ -21,9 +21,7 @@ is suppressed."
 (defun debugito-open-block ()
   "Open a line for a new block."
   (interactive)
-  (newline-and-indent)
-  (forward-line -1)
-  (end-of-line)
+  (save-excursion (newline-and-indent))
   (newline-and-indent))
 
 ;; insert-pair
