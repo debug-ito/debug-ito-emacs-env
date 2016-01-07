@@ -213,7 +213,8 @@
         turn-on-font-lock
         (lambda ()
           (define-key haskell-indentation-mode-map (kbd "C-j") 'haskell-newline-and-indent)
-          (define-key haskell-indentation-mode-map (kbd "RET") 'newline))))
+          (define-key haskell-indentation-mode-map (kbd "RET") 'newline)
+          (define-key haskell-indentation-mode-map (kbd "C-d") 'delete-char))))
 
 
 ;;;;;;;;;;;;;;;;;;; Other settings
