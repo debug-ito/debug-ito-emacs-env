@@ -212,6 +212,7 @@
         turn-on-haskell-decl-scan
         turn-on-font-lock
         (lambda ()
+          (set (make-local-variable 'debugito-open-block-impl) 'debugito-open-block-aligned)
           (define-key haskell-indentation-mode-map (kbd "C-j") 'haskell-newline-and-indent)
           (define-key haskell-indentation-mode-map (kbd "RET") 'newline)
           (define-key haskell-indentation-mode-map (kbd "C-d") 'delete-char))))
