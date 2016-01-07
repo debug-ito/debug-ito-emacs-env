@@ -24,6 +24,12 @@ is suppressed."
   (save-excursion (newline-and-indent))
   (newline-and-indent))
 
+(defun debugito-open-block-haskell ()
+  "Open a block in parentheses."
+  (interactive)
+  (save-excursion (haskell-newline-and-indent))
+  (insert " "))  ;; TODO: search an opening parenthesis and insert a space after that.
+
 ;; insert-pair
 (defun debugito-insert-pair (arg begin-str end-str)
   "When you use without any prefix argument, this function inserts BEGIN-STR followed by END-STR to the point,
