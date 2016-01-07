@@ -18,17 +18,29 @@ is suppressed."
              (warn "Cannot find and load %s. Skip." feature))
            nil)))
 
-(defun debugito-open-block ()
-  "Open a line for a new block."
+(defun debugito-open-block-hanging ()
+  "Open a line in parentheses.
+This function assumes the closing parenthesis is hanging below the opening one."
   (interactive)
   (save-excursion (newline-and-indent))
   (newline-and-indent))
 
-(defun debugito-open-block-haskell ()
-  "Open a block in parentheses."
+(defun debugito-open-block-aligned ()
+  "Open a block in parentheses.
+This function assumes the parentheses should be aligned, like in Haskell."
   (interactive)
   (save-excursion (haskell-newline-and-indent))
   (insert " "))  ;; TODO: search an opening parenthesis and insert a space after that.
+
+(defvar debugito-open-block-impl 'debugito-open-block-hanging
+  "Implementation of `debugito-open-block'")
+
+(defun debugito-open-block ()
+  "Open a block in parentheses. You can change the behavior of this function
+by chaning `debugito-open-block-impl'"
+  (interactive)
+  (funcall debugito-open-block-impl))
+
 
 ;; insert-pair
 (defun debugito-insert-pair (arg begin-str end-str)
