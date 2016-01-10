@@ -29,7 +29,7 @@ This function assumes the closing parenthesis is hanging below the opening one."
   "Open a block in parentheses.
 This function assumes the parentheses should be aligned, like in Haskell."
   (interactive)
-  (save-excursion (haskell-newline-and-indent))
+  (save-excursion (newline-and-indent))
   (insert " "))  ;; TODO: search an opening parenthesis and insert a space after that.
 
 (defvar debugito-open-block-impl 'debugito-open-block-hanging
