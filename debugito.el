@@ -29,8 +29,16 @@ This function assumes the closing parenthesis is hanging below the opening one."
   "Open a block in parentheses.
 This function assumes the parentheses should be aligned, like in Haskell."
   (interactive)
-  (save-excursion (newline-and-indent))
-  (insert " "))  ;; TODO: search an opening parenthesis and insert a space after that.
+  (let ((insertion-point (point)))
+    (save-excursion
+      (newline-and-indent)
+      (let ((matched (re-search-backward "(|{|\\[|^" nil t))
+            (match-len (length (match-string 0))))
+        (when (and matched (< 0 match-len))
+          (forward-char match-len)
+          (setq insertion-point (point))))
+      (goto-char insertion-point)
+      (insert " "))))
 
 (defvar debugito-open-block-impl 'debugito-open-block-hanging
   "Implementation of `debugito-open-block'")
