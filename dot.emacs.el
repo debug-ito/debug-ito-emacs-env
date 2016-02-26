@@ -36,7 +36,9 @@
 
 ;;;;;;;;;;;;;; yasnippet
 (when (debugito-require-if-any 'yasnippet)
-  (yas-global-mode 1))
+  (yas-global-mode 1)
+  (setq debugito-yas-name "Toshio Ito")
+  (setq debugito-yas-email "debug.ito@gmail.com"))
 
 ;;;;;;;;;;;;;; Setting for X mode
 (cond (window-system

@@ -5,7 +5,7 @@
 -- |
 -- Module: ${1:Module}
 -- Description: $0 
--- Maintainer: Toshio Ito <debug.ito@gmail.com>
+-- Maintainer: `debugito-yas-name` <`debugito-yas-email`>
 --
 -- 
 module $1
