@@ -293,18 +293,3 @@
 
 
 (debugito-load-if-any "local-after" t)
-
-;; ;;;;; for testing...
-;; ;; http://www.jrh.org/dotemacs.html
-;; (defface font-lock-function-call-face
-;;   '((t (:foreground "orange")))
-;;   "Font Lock mode face used to highlight function calls."
-;;   :group 'font-lock-highlighting-faces)
-;; 
-;; (defvar font-lock-function-call-face 'font-lock-function-call-face)
-;; (add-hook 'c-mode-hook
-;;           (lambda ()
-;;             (font-lock-add-keywords
-;;              nil
-;;              '(("\\<\\(\\sw+\\) ?(" 1 font-lock-function-call-face)) t)))
-;; 
