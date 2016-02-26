@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: module head
+# key: mod
+# --
+-- |
+-- Module: ${1:Module}
+-- Description: $0 
+-- Maintainer: Toshio Ito <debug.ito@gmail.com>
+--
+-- 
+module $1
+       () where

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: or die
+# key: or
+# --
+or die "${1:\$!}";

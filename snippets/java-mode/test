@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: define test method
+# key: test
+# --
+@Test
+public void ${1:name}() throws Exception {
+    $0
+}
