@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: elsif
+# key: eif
+# --
+elsif($1) {
+    $0
+}
