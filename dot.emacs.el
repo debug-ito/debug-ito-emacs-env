@@ -266,11 +266,11 @@
 (global-set-key (kbd "C--") "=")
 (global-set-key (kbd "C-\\") "_")
 (global-set-key (kbd "M-,") (lambda () (interactive) (find-tag "" t)))
-(global-set-key (kbd "C-o") (lambda () (interactive) (debugito-rot-input debugito-rot-dollar "debugito-rot-CO")))
+(global-set-key (kbd "C-o") (lambda () (interactive) (debugito-rot-input debugito-rot-dollar 'debugito-rot-CO)))
 (global-set-key (kbd "C-t") (lambda (arg) (interactive "p")
                   (if (= arg 1)
-                      (debugito-rot-input debugito-rot-othersigils "debugito-rot-CT")
-                    (debugito-rot-input debugito-rot-arrow "debugito-rot-CT" 2))))
+                      (debugito-rot-input debugito-rot-othersigils 'debugito-rot-CT)
+                    (debugito-rot-input debugito-rot-arrow 'debugito-rot-CT 2))))
 
 ;; Always-enabled global key setting
 ;; http://pqrs.org/emacs/doc/keyjack-mode/index.html
@@ -284,7 +284,7 @@
         `(;; One-touch opening a block
           (,(kbd "C-c C-j") . debugito-open-block)
           ;; sequential numbering
-          (,(kbd "C-c C-o") . (lambda () (interactive) (debugito-rot-input debugito-rot-arrow "debugito-rot-CO")))))
+          (,(kbd "C-c C-o") . (lambda () (interactive) (debugito-rot-input debugito-rot-arrow 'debugito-rot-CO)))))
 
 (define-minor-mode my-keyjack-mode
   "A minor mode so that my key settings override annoying major modes."
