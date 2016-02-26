@@ -34,6 +34,9 @@
   (setq display-buffer-function 'popwin:display-buffer)
   (add-to-list  'popwin:special-display-config '("*tex-shell*" :noselect t)))
 
+;;;;;;;;;;;;;; yasnippet
+(when (debugito-require-if-any 'yasnippet)
+  (yas-global-mode 1))
 
 ;;;;;;;;;;;;;; Setting for X mode
 (cond (window-system
