@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
 # name: import
-# key: imp
+# key: im
 # --
 import ${1:Module} ($0)

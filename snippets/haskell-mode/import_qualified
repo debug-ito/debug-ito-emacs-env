@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
 # name: import qualified
-# key: qua
+# key: qu
 # --
 import qualified ${1:Module} as ${2:M}
