@@ -1,8 +1,9 @@
 # -*- mode: snippet -*-
 # name: hspec module
 # key: hspec
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # --
-module $1 (main,spec) where
+module ${1:ModuleName} (main,spec) where
 
 import Test.Hspec
 
