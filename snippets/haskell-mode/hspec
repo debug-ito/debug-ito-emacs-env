@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: hspec module
+# key: hspec
+# --
+module $1 (main,spec) where
+
+import Test.Hspec
+
+main :: IO ()
+main = hspec spec
+
+spec :: Spec
+spec = $0
