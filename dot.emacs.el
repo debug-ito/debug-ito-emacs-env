@@ -17,6 +17,7 @@
 (setq tags-revert-without-query t)
 (setq-default bidi-display-reording nil)
 (setq-default bidi-paragraph-direction 'left-to-right)
+(electric-indent-mode 0)
 (server-start)
 
 ;;;;;;;;;;;;;; elscreen http://www.morishima.net/~naoto/elscreen-en/?lang=en
