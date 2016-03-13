@@ -1,5 +1,5 @@
 ;; Save this file in ISO-2022-JP because it is the coding system for Anthy!
-(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/lib")
 (load-library "debugito")
 (setq debugito-frame-width 128)
 (setq debugito-frame-height 26)
