@@ -222,12 +222,6 @@
           (define-key haskell-indentation-mode-map (kbd "RET") 'newline)
           (define-key haskell-indentation-mode-map (kbd "C-d") 'delete-char))))
 
-
-;;;;;;;;;;;;;;;;;;; Other settings
-;; http://d.hatena.ne.jp/rubikitch/20090219/sequential_command
-(when (debugito-require-if-any 'sequential-command-config)
-  (sequential-command-setup-keys))
-
 ;;;;;;;;;;;;; Key customization
 
 ;; C-h as backspace in i-search mode
