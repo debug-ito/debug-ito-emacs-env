@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: figure
+# key: fig
+# --
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[clip, width=$0]{}
+  \caption{}
+  \label{fig:}
+\end{figure}
