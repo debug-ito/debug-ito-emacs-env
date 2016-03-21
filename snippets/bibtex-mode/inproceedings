@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: inproceedings
+# key: inpro
+# --
+@inproceedings{$0,
+author = {},
+title = {},
+booktitle = {},
+year = {},
+month = {},
+volume = {},
+number = {},
+pages = {},
+publisher = {},
+}

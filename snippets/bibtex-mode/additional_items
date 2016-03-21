@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: additional items
+# key: ad
+# --
+myurl = {$0},
+tags = {},
+comment = {},
+readdate = {},
