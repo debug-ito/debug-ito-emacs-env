@@ -152,6 +152,7 @@
   (let ((pop-up-windows nil))
     ad-do-it))
 (add-hook 'git-commit-setup-hook 'turn-off-auto-fill) ;; auto-fill is enabled by default
+(setq git-commit-finish-query-functions '())
 
 ;;;;;;;;;;;;;;;;;;;; markdown mode
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
