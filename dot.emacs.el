@@ -17,6 +17,7 @@
 (setq tags-revert-without-query t)
 (setq-default bidi-display-reording nil)
 (setq-default bidi-paragraph-direction 'left-to-right)
+(electric-indent-mode 0)
 (server-start)
 
 ;;;;;;;;;;;;;; elscreen http://www.morishima.net/~naoto/elscreen-en/?lang=en
@@ -50,7 +51,8 @@
        (mouse-wheel-mode 1) ;; Enable wheel mouse
        (setq x-select-enable-clipboard t) ;; Share kill-ring and X clipboard
        (add-to-list 'default-frame-alist (cons 'height debugito-frame-height))
-       (add-to-list 'default-frame-alist (cons 'width debugito-frame-width))))
+       (add-to-list 'default-frame-alist (cons 'width debugito-frame-width))
+       (set-face-attribute 'region nil :foreground "gtk_selection_fg_color")))
 
 ;; Setting for sensible split
 ;; see Help "split-window-sensibly"
@@ -149,6 +151,8 @@
 (defadvice magit-status (around magit-status-full-window activate)
   (let ((pop-up-windows nil))
     ad-do-it))
+(add-hook 'git-commit-setup-hook 'turn-off-auto-fill) ;; auto-fill is enabled by default
+(setq git-commit-finish-query-functions '())
 
 ;;;;;;;;;;;;;;;;;;;; markdown mode
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
@@ -218,7 +222,7 @@
         turn-on-font-lock
         (lambda ()
           (set (make-local-variable 'debugito-open-block-impl) 'debugito-open-block-aligned)
-          (define-key haskell-indentation-mode-map (kbd "C-j") 'haskell-newline-and-indent)
+          (define-key haskell-indentation-mode-map (kbd "C-j") 'haskell-indentation-newline-and-indent)
           (define-key haskell-indentation-mode-map (kbd "RET") 'newline)
           (define-key haskell-indentation-mode-map (kbd "C-d") 'delete-char))))
 
