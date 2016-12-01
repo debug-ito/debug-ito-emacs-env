@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
 # name: namespace
 # key: ns
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # --
 namespace ${1:Namespace} {
 $0
