@@ -43,7 +43,7 @@
 
 ;;;;;;;;;;;;;; Setting for X mode
 (cond (window-system
-       ;; .emacs$B$G$N%U%)%s%H@_Dj$G$&$^$/$$$+$J$$$H$-$O(B~/.Xresources$B$G@_Dj$7$F$_$k(B
+       ;; .emacsでのフォント設定でうまくいかないときは~/.Xresourcesで設定してみる
        (set-default-font "TakaoGothic-12")
        (set-scroll-bar-mode 'right) ;; show scroll bar on the right side
        (menu-bar-mode 0) ;; Disable menu-bar
@@ -66,7 +66,7 @@
 (add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode))
 
 ;; Use aspell
-; $B<-=qJQ99$K$O(Bispell-change-dictionary$B$r;H$&(B
+; 辞書変更にはispell-change-dictionaryを使う
 (setq-default ispell-program-name "aspell")
 
 ;;;;;;;;;;;;;;; mozc
@@ -232,6 +232,21 @@
           (define-key haskell-indentation-mode-map (kbd "C-j") 'haskell-indentation-newline-and-indent)
           (define-key haskell-indentation-mode-map (kbd "RET") 'newline)
           (define-key haskell-indentation-mode-map (kbd "C-d") 'delete-char))))
+
+;;;;;;;;;;;;;;;;;;; Groovy mode
+
+;;; use groovy-mode when file ends in .groovy or has #!/bin/groovy at start
+(autoload 'groovy-mode "groovy-mode" "Major mode for editing Groovy code." t)
+(add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
+(add-to-list 'auto-mode-alist '("\.gradle$" . groovy-mode))
+(add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
+
+
+;;;;;;;;;;;;;;;;;; setting for japanese-zenkaku-region
+
+(put-char-code-property ?- 'jisx0208 ?―) ;; U+2014 "em dash"
+(put-char-code-property ?  'jisx0208 nil) ;; don't use Zenkaku Space.
+
 
 ;;;;;;;;;;;;; Key customization
 
