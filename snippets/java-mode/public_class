@@ -2,8 +2,6 @@
 # name: public class
 # key: class
 # --
-public class ${1:`(file-name-base
-                    (or (buffer-file-name)
-                        (buffer-name)))`} {
+public class ${1:`(debugito-filename nil)`} {
     $0
 }

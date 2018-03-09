@@ -176,3 +176,20 @@ See Also: rotate-text.el http://www.emacswiki.org/RotateText
     (set-buffer "Summary")
     (wl-summary-redisplay)))
 
+
+;;; Functions mainly for yasnippet
+
+(defun debugito-dirs (head-pattern)
+  (split-string (replace-regexp-in-string head-pattern "" default-directory) "/" t))
+
+(defun debugito-filename (with-extension)
+  (let ((file-name (file-name-base (or (buffer-file-name) (buffer-name)))))
+    (if with-extension
+        file-name
+      (replace-regexp-in-string "\\..*$" "" file-name))))
+
+(defun debugito-module-path (dir-head-pattern)
+  (append (debugito-dirs dir-head-pattern) (cons (debugito-filename nil) nil)))
+
+(defun debugito-join (delim ss)
+  (mapconcat 'identity ss delim))
