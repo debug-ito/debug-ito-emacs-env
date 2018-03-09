@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: GHC option
+# key: opt
+# --
+{-# OPTIONS_GHC $0 #-}

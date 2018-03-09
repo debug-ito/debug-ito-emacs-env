@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: main module
+# key: main
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+module Main (main) where
+
+main :: IO ()
+main = $0
