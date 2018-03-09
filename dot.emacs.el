@@ -18,6 +18,7 @@
 (setq-default bidi-display-reording nil)
 (setq-default bidi-paragraph-direction 'left-to-right)
 (electric-indent-mode 0)
+(setq comment-style 'extra-line) ;; Comment marks (e.g. /*, */) should be only at the head of each line.
 (server-start)
 
 ;;;;;;;;;;;;;; elscreen http://www.morishima.net/~naoto/elscreen-en/?lang=en
