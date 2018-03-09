@@ -2,7 +2,7 @@
 # name: module
 # key: mod
 # --
-package ${1:PackageName};
+package ${1:`(debugito-join "::" (debugito-module-path ".*/lib/"))`};
 use strict;
 use warnings;
 $0
