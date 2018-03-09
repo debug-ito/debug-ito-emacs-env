@@ -247,6 +247,8 @@
 
 (put-char-code-property ?- 'jisx0208 ?―) ;; U+2014 "em dash"
 (put-char-code-property ?  'jisx0208 nil) ;; don't use Zenkaku Space.
+(put-char-code-property ?. 'jisx0208 ?．) ;; Use Zenkaku-Period, not the ideographic period (。)
+(put-char-code-property ?, 'jisx0208 ?，) ;; Use Zenkaku-Comma, not the ideographic comma (、)
 
 
 ;;;;;;;;;;;;; Key customization
