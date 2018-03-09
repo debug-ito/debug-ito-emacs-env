@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: package
+# key: pa
+# --
+package ${1:`(debugito-join "." (debugito-dirs ".*src\\(/\\(main\\|test\\)\\)?\\(/java\\)?"))`};
+$0
