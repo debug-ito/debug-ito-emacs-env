@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: preprocessor if
+# key: pif
+# --
+#if ${1:CONDITION}
+$0
+#else /* $1 */
+#endif /* $1 */
