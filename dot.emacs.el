@@ -157,8 +157,11 @@
 
 ;;;;;;;;;;;;;;;;;;;; markdown mode
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-(add-hook 'markdown-mode-hook (lambda () (local-set-key (kbd "C-m") 'newline)))
-(add-hook 'markdown-mode-hook (lambda () (setq word-wrap t)))
+(add-hook 'markdown-mode-hook
+          (lambda () (progn
+                       (local-set-key (kbd "C-m") 'newline)
+                       (setq word-wrap t)
+                       (setq comment-continue "  --"))))
 
 ;;;;;;;;;;;;;;;;;;;; Doxymacs
 (when (debugito-require-if-any 'doxymacs)
