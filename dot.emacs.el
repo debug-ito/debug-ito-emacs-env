@@ -110,6 +110,10 @@
 (autoload 'nesc-mode "nesc.el")
 (add-to-list 'auto-mode-alist '("\\.nc\\'" . nesc-mode))
 
+;;;;;;;;;;;;;;;;; Makefile mode
+
+(add-to-list 'auto-mode-alist '("/[mM]akefile[^/]*\\'" . makefile-gmake-mode))
+
 ;;;;;;;;;;;;;;;;; CSS mode
 (setq cssm-mirror-mode nil) ;; Turn off mirror mode
 (setq cssm-indent-function #'cssm-c-style-indenter) ;; C-style indentation
