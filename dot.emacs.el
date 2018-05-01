@@ -98,6 +98,18 @@
 (setq comint-password-prompt-regexp "\\(\\([Oo]ld \\|[Nn]ew \\|'s \\|login \\|Kerberos \\|CVS \\|UNIX \\| SMB \\|^\\|\\[sudo\\] \\)[Pp]assword\\( (again)\\)?\\|pass phrase\\|\\(Enter\\|Repeat\\|Bad\\) passphrase\\)\\(?:, try again\\)?\\(?: for [^:]+\\)?:\\s *\\'")
 (setq shell-completion-fignore '(".svn/"))
 
+;; shell command uses pop-to-buffer to show the shell buffer, which by
+;; default prefers another window to show the buffer. To show the
+;; shell buffer in the current window, we temporarily set
+;; display-buffer-overriding-action to change the default behavior of
+;; pop-to-buffer.
+(defun debugito-advice-shell-window (orig-fun &rest args)
+  (let ((orig-override display-buffer-overriding-action))
+    (setq display-buffer-overriding-action display-buffer--same-window-action)
+    (apply orig-fun args)
+    (setq display-buffer-overriding-action orig-override)))
+(advice-add 'shell :around 'debugito-advice-shell-window)
+
 ;; track current working directory based on /proc fs
 ;; http://www.emacswiki.org/emacs/ShellDirtrackByProcfs
 (defun track-shell-directory/procfs ()
