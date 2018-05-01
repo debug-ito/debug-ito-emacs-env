@@ -1,4 +1,7 @@
 ;; Save this file in ISO-2022-JP because it is the coding system for Anthy!
+
+(package-initialize)
+
 (add-to-list 'load-path "~/.emacs.d/lib")
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
