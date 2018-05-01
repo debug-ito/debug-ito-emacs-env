@@ -1,5 +1,8 @@
 ;; Save this file in ISO-2022-JP because it is the coding system for Anthy!
 
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
 
 (add-to-list 'load-path "~/.emacs.d/lib")
