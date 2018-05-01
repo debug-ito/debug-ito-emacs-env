@@ -45,6 +45,7 @@
   (add-to-list  'popwin:special-display-config '("*tex-shell*" :noselect t)))
 
 ;;;;;;;;;;;;;; yasnippet
+(setq-default yas-snippet-dirs '("~/.emacs.d/snippets"))
 (when (debugito-require-if-any 'yasnippet)
   (yas-global-mode 1)
   (setq debugito-yas-name "Toshio Ito")
