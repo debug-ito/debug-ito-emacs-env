@@ -54,7 +54,7 @@
 ;;;;;;;;;;;;;; Setting for X mode
 (cond (window-system
        ;; .emacsでのフォント設定でうまくいかないときは~/.Xresourcesで設定してみる
-       (set-default-font "Noto Sans Mono CJK JP-11")
+       (set-default-font "TakaoGothic-11")
        (set-scroll-bar-mode 'right) ;; show scroll bar on the right side
        (menu-bar-mode 0) ;; Disable menu-bar
        (tool-bar-mode 0) ;; Disable tool-bar
