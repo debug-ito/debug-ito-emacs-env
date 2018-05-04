@@ -3,7 +3,7 @@
 # key: mod
 # --
 -- |
--- Module: ${1:`(debugito-join "." (debugito-module-path ".*/\\(src\\|test\\)"))`}
+-- Module: ${1:`(debugito-join "." (debugito-module-path ".*/\\(src\\|test\\)/"))`}
 -- Description: $0
 -- Maintainer: `debugito-yas-name` <`debugito-yas-email`>
 --

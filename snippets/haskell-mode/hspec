@@ -3,7 +3,7 @@
 # key: hspec
 # expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # --
-module ${1:`(debugito-join "." (debugito-module-path ".*/\\(src\\|test\\)"))`} (main,spec) where
+module ${1:`(debugito-join "." (debugito-module-path ".*/\\(src\\|test\\)/"))`} (main,spec) where
 
 import Test.Hspec
 
