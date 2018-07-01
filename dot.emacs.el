@@ -252,6 +252,9 @@
 (add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
 
 
+;;;;;;;;;;;;;;;;;;; org mode
+(setq org-startup-folded nil)
+
 ;;;;;;;;;;;;;;;;;; setting for japanese-zenkaku-region
 
 (put-char-code-property ?- 'jisx0208 ?―) ;; U+2014 "em dash"
