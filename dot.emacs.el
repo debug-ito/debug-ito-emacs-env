@@ -38,12 +38,6 @@
 (when (debugito-require-if-any 'uniquify)
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
-;;;;;;;;;;;;;; popwin
-;;;;;;;;; https://github.com/m2ym/popwin-el
-(when (debugito-require-if-any 'popwin)
-  (setq display-buffer-function 'popwin:display-buffer)
-  (add-to-list  'popwin:special-display-config '("*tex-shell*" :noselect t)))
-
 ;;;;;;;;;;;;;; yasnippet
 (setq-default yas-snippet-dirs '("~/.emacs.d/snippets"))
 (when (debugito-require-if-any 'yasnippet)
