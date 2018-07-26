@@ -182,13 +182,6 @@
                        (setq word-wrap t)
                        (setq comment-continue "  --"))))
 
-;;;;;;;;;;;;;;;;;;;; Doxymacs
-(when (debugito-require-if-any 'doxymacs)
-  (add-hook 'c-mode-common-hook 'doxymacs-mode)
-  (add-hook 'js-mode-hook 'doxymacs-mode)
-  (setq doxymacs-blank-multiline-comment-template '("/**" > n "* " p > n  "*/" >))
-  (setq doxymacs-blank-singleline-comment-template '("/** " p " */" >)))
-
 ;;;;;;;;;;;;;; (C)Perl mode
 ;; http://www.emacswiki.org/emacs/CPerlMode
 ;; https://github.com/jrockway/cperl-mode
