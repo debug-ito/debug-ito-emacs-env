@@ -1,4 +1,10 @@
 ;; Save this file in ISO-2022-JP because it is the coding system for Anthy!
+
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(package-initialize)
+
 (add-to-list 'load-path "~/.emacs.d/lib")
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
@@ -32,13 +38,8 @@
 (when (debugito-require-if-any 'uniquify)
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
-;;;;;;;;;;;;;; popwin
-;;;;;;;;; https://github.com/m2ym/popwin-el
-(when (debugito-require-if-any 'popwin)
-  (setq display-buffer-function 'popwin:display-buffer)
-  (add-to-list  'popwin:special-display-config '("*tex-shell*" :noselect t)))
-
 ;;;;;;;;;;;;;; yasnippet
+(setq-default yas-snippet-dirs '("~/.emacs.d/snippets"))
 (when (debugito-require-if-any 'yasnippet)
   (yas-global-mode 1)
   (setq debugito-yas-name "Toshio Ito")
@@ -91,6 +92,18 @@
 ;; Hide password input prompted by sudo
 (setq comint-password-prompt-regexp "\\(\\([Oo]ld \\|[Nn]ew \\|'s \\|login \\|Kerberos \\|CVS \\|UNIX \\| SMB \\|^\\|\\[sudo\\] \\)[Pp]assword\\( (again)\\)?\\|pass phrase\\|\\(Enter\\|Repeat\\|Bad\\) passphrase\\)\\(?:, try again\\)?\\(?: for [^:]+\\)?:\\s *\\'")
 (setq shell-completion-fignore '(".svn/"))
+
+;; shell command uses pop-to-buffer to show the shell buffer, which by
+;; default prefers another window to show the buffer. To show the
+;; shell buffer in the current window, we temporarily set
+;; display-buffer-overriding-action to change the default behavior of
+;; pop-to-buffer.
+(defun debugito-advice-shell-window (orig-fun &rest args)
+  (let ((orig-override display-buffer-overriding-action))
+    (setq display-buffer-overriding-action display-buffer--same-window-action)
+    (apply orig-fun args)
+    (setq display-buffer-overriding-action orig-override)))
+(advice-add 'shell :around 'debugito-advice-shell-window)
 
 ;; track current working directory based on /proc fs
 ;; http://www.emacswiki.org/emacs/ShellDirtrackByProcfs
@@ -168,13 +181,6 @@
                        (local-set-key (kbd "C-m") 'newline)
                        (setq word-wrap t)
                        (setq comment-continue "  --"))))
-
-;;;;;;;;;;;;;;;;;;;; Doxymacs
-(when (debugito-require-if-any 'doxymacs)
-  (add-hook 'c-mode-common-hook 'doxymacs-mode)
-  (add-hook 'js-mode-hook 'doxymacs-mode)
-  (setq doxymacs-blank-multiline-comment-template '("/**" > n "* " p > n  "*/" >))
-  (setq doxymacs-blank-singleline-comment-template '("/** " p " */" >)))
 
 ;;;;;;;;;;;;;; (C)Perl mode
 ;; http://www.emacswiki.org/emacs/CPerlMode
