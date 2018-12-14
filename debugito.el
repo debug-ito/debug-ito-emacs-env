@@ -193,3 +193,10 @@ See Also: rotate-text.el http://www.emacswiki.org/RotateText
 
 (defun debugito-join (delim ss)
   (mapconcat 'identity ss delim))
+
+(defun debugito-remove-auto-mode (mode-symbol)
+  "Remove the mode `mode-symbol' from the `auto-mode-alist'"
+  (setq auto-mode-alist
+        (seq-filter
+         (lambda (pair) (not (eq (cdr pair) mode-symbol)))
+         auto-mode-alist)))

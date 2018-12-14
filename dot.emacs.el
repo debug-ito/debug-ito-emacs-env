@@ -226,6 +226,8 @@
                            (lambda (arg) (interactive "p")
                              (debugito-insert-pair arg "|" "|")))))
 
+;;;;;;;;;;;;;;;;;;; ChangeLog mode
+(debugito-remove-auto-mode 'change-log-mode)
 
 ;;;;;;;;;;;;;;;;;;; Javascript mode
 (setq js-auto-indent-flag nil)
