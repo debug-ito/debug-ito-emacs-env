@@ -303,6 +303,7 @@
 (global-set-key (kbd "C-]") 'enlarge-window-horizontally)
 (global-set-key (kbd "C-}") 'shrink-window-horizontally)
 (global-set-key (kbd "M-i") 'complete-symbol)
+(global-set-key (kbd "M-s h l") 'debugito-highlight-lines)
 (global-set-key (kbd "<C-tab>") 'dabbrev-expand)
 (global-set-key (kbd "C-.") ">")
 (global-set-key (kbd "C-,") "<")

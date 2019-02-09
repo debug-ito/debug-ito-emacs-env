@@ -176,8 +176,37 @@ See Also: rotate-text.el http://www.emacswiki.org/RotateText
     (set-buffer "Summary")
     (wl-summary-redisplay)))
 
+(defun debugito-remove-auto-mode (mode-symbol)
+  "Remove the mode `mode-symbol' from the `auto-mode-alist'"
+  (setq auto-mode-alist
+        (seq-filter
+         (lambda (pair) (not (eq (cdr pair) mode-symbol)))
+         auto-mode-alist)))
 
-;;; Functions mainly for yasnippet
+(require 'hi-lock)
+
+(defun debugito-highlight-lines (regexp &optional face)
+  "Wrapper of
+`highlight-lines-matching-regexp' (`hi-lock-line-face-buffer'). This
+function ensures highlighting is always done by font-lock even in
+fundamental-mode."
+  (interactive  ;; borrowed from hi-lock.el
+   (list
+    (hi-lock-regexp-okay
+     (read-regexp "Regexp to highlight line" 'regexp-history-last))
+    (hi-lock-read-face-name)))
+  (if (eq major-mode 'fundamental-mode)
+      (progn
+        (hi-lock-line-face-buffer regexp face)
+        (hi-lock-mode 0)
+        (font-lock-mode 0)
+        (font-lock-mode 1)
+        (hi-lock-line-face-buffer regexp face))
+    (hi-lock-line-face-buffer regexp face)))
+
+
+
+;;;;;;;;;;;;;; Functions mainly for yasnippet
 
 (defun debugito-dirs (head-pattern)
   (split-string (replace-regexp-in-string head-pattern "" default-directory) "/" t))
@@ -193,10 +222,3 @@ See Also: rotate-text.el http://www.emacswiki.org/RotateText
 
 (defun debugito-join (delim ss)
   (mapconcat 'identity ss delim))
-
-(defun debugito-remove-auto-mode (mode-symbol)
-  "Remove the mode `mode-symbol' from the `auto-mode-alist'"
-  (setq auto-mode-alist
-        (seq-filter
-         (lambda (pair) (not (eq (cdr pair) mode-symbol)))
-         auto-mode-alist)))
