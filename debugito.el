@@ -185,6 +185,11 @@ See Also: rotate-text.el http://www.emacswiki.org/RotateText
 
 (require 'hi-lock)
 
+;; Buffer-local variable to make sure hi-lock-mode and font-lock-mode
+;; is initialized only once. Otherwise, highlight settings is flushed
+;; every time you initialize the modes.
+(setq-default debugito-highlight-initialized nil)
+
 (defun debugito-highlight-lines (regexp &optional face)
   "Wrapper of
 `highlight-lines-matching-regexp' (`hi-lock-line-face-buffer'). This
@@ -195,15 +200,15 @@ fundamental-mode."
     (hi-lock-regexp-okay
      (read-regexp "Regexp to highlight line" 'regexp-history-last))
     (hi-lock-read-face-name)))
-  (if (eq major-mode 'fundamental-mode)
-      (progn
-        (hi-lock-line-face-buffer regexp face)
-        (hi-lock-mode 0)
-        (font-lock-mode 0)
-        (font-lock-mode 1)
-        (hi-lock-line-face-buffer regexp face))
-    (hi-lock-line-face-buffer regexp face)))
-
+  (hi-lock-line-face-buffer regexp face)
+  (when (and (not debugito-highlight-initialized)
+             (eq major-mode 'fundamental-mode))
+    (hi-lock-line-face-buffer regexp face)
+    (hi-lock-mode 0)
+    (font-lock-mode 0)
+    (font-lock-mode 1)
+    (hi-lock-line-face-buffer regexp face))
+  (set (make-local-variable 'debugito-highlight-initialized) t))
 
 
 ;;;;;;;;;;;;;; Functions mainly for yasnippet
