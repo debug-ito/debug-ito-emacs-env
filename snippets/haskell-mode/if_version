@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Preprocessor if based on package version
+# key: ifv
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+#if MIN_VERSION_${1:package-name}(${2:0},${3:0},${4:0})
+$0
+#endif
