@@ -263,6 +263,13 @@
 ;;;;;;;;;;;;;;;;;;; org mode
 (setq org-startup-folded nil)
 
+;;;;;;;;;;;;;;;;;;; Rust mode
+(add-hook 'rust-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-t") (lambda () (interactive)
+                                         (debugito-rot-input debugito-rot-othersigils 'debugito-rot-CT 2)))))
+
+
 ;;;;;;;;;;;;;;;;;; setting for japanese-zenkaku-region
 
 (put-char-code-property ?- 'jisx0208 ?―) ;; U+2014 "em dash"
