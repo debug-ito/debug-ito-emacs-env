@@ -128,11 +128,12 @@ See Also: rotate-text.el http://www.emacswiki.org/RotateText
   rotate-text rotates a string that is already on the buffer. This behavior is sometimes
   confusing, especially when my intention is to insert a new string instead of modify
   the existing one."
-  (unless start-index
-    (setq start-index 0))
   (when comm-name
     (setq this-command comm-name))
-  (unless (equal this-command last-command)
+  (setq is-start (not (equal this-command last-command)))
+  (when (or (not start-index) (not is-start))
+    (setq start-index 0))
+  (when is-start
     (setq debugito-rot-current-list input-list)
     (setq debugito-rot-previous-elem nil))
   (let ((cur-elem (or (cdr debugito-rot-previous-elem)
