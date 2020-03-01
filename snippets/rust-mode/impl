@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: implementation of methods and traits 
+# key: im
+# --
+impl $0 {
+
+}
