@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
 # name: module head
 # key: mod
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # --
 module ${1:`(debugito-join "." (debugito-module-path ".*/\\(src\\|test\\)/"))`} exposing
     ()
