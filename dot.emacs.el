@@ -251,6 +251,11 @@
           (define-key haskell-indentation-mode-map (kbd "RET") 'newline)
           (define-key haskell-indentation-mode-map (kbd "C-d") 'delete-char))))
 
+;;;;;;;;;;;;;;;;;;; Elm mode
+(setq elm-mode-hook
+      '((lambda ()
+          (set (make-local-variable 'debugito-open-block-impl) 'debugito-open-block-aligned))))
+
 ;;;;;;;;;;;;;;;;;;; Groovy mode
 
 ;;; use groovy-mode when file ends in .groovy or has #!/bin/groovy at start
