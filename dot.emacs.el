@@ -252,7 +252,7 @@
           (define-key haskell-indentation-mode-map (kbd "C-d") 'delete-char))))
 
 ;;;;;;;;;;;;;;;;;;; Elm mode
-(defvar debugito-rot-elm '(("<|" . 2) ("|>" . 2) ("\\" . 0)))
+(defvar debugito-rot-elm '(("<|" . 2) ("\\" . 1) ("|>" . 2)))
 (setq elm-mode-hook
       '((lambda ()
           (set (make-local-variable 'debugito-open-block-impl) 'debugito-open-block-aligned))
