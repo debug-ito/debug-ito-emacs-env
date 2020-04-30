@@ -2,4 +2,4 @@
 # name: import qualified
 # key: qu
 # --
-import ${1:Module} as $0
+import ${1:Module}
