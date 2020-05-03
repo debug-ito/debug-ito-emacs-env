@@ -6,4 +6,4 @@
 module ${1:`(debugito-join "." (debugito-module-path ".*/\\(src\\|test\\|tests\\)/"))`} exposing
     ()
 
-{-| $0 -}
+{- | $0 -}
