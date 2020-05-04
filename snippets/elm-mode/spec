@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: test spec module
+# key: spec
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+module ${1:`(debugito-join "." (debugito-module-path ".*/\\(src\\|test\\|tests\\)/"))`} (suite) where
+
+import Expect as Exp
+import Test (Test, describe, test)
+
+suite : Test
+suite = $0
