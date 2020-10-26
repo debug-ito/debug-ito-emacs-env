@@ -217,6 +217,9 @@ fundamental-mode."
 (defun debugito-dirs (head-pattern)
   (split-string (replace-regexp-in-string head-pattern "" default-directory) "/" t))
 
+(defun debugito-immediate-dir ()
+  (car (last (split-string default-directory "/" t))))
+
 (defun debugito-filename (with-extension)
   (let ((file-name (file-name-base (or (buffer-file-name) (buffer-name)))))
     (if with-extension

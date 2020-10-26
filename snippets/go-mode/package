@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: package
+# key: pa
+# --
+package ${1:`(debugito-immediate-dir)`}
+$0
