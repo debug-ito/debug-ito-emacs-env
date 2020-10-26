@@ -120,6 +120,11 @@
             nil t))
 (add-hook 'shell-mode-hook 'track-shell-directory/procfs)
 
+(defun debugito-set-CT-rot-amp ()
+  "Set local-key C-t to the key rotation starting with '&' symbol."
+  (local-set-key (kbd "C-t") (lambda () (interactive)
+                               (debugito-rot-input debugito-rot-othersigils 'debugito-rot-CT 2))))
+
 ;;;;;;;;;;;;;;;; Add NesC mode autoload feature
 ;; You have to place nesc.el provided by nesc package in wherever emacs can find it.
 (autoload 'nesc-mode "nesc.el")
@@ -273,11 +278,14 @@
 (setq org-startup-folded nil)
 
 ;;;;;;;;;;;;;;;;;;; Rust mode
-(add-hook 'rust-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-t") (lambda () (interactive)
-                                         (debugito-rot-input debugito-rot-othersigils 'debugito-rot-CT 2)))))
+(add-hook 'rust-mode-hook 'debugito-set-CT-rot-amp)
 
+;;;;;;;;;;;;;;;;;;; Go mode
+(defvar debugito-rot-go '((":=" . 2) ("<-" . 2) ("\\" . 1)))
+(add-hook 'go-mode-hook 'debugito-set-CT-rot-amp)
+(add-hook 'go-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-o") (lambda () (interactive) (debugito-rot-input debugito-rot-go 'debugito-rot-CO)))))
 
 ;;;;;;;;;;;;;;;;;; setting for japanese-zenkaku-region
 
