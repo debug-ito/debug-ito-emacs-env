@@ -215,19 +215,29 @@ fundamental-mode."
 ;;;;;;;;;;;;;; Functions mainly for yasnippet
 
 (defun debugito-dirs (head-pattern)
+  "Return a list of directory names that consists of the path of `default-directory'.
+HEAD-PATTERN is a regexp string that is supposed to match the head part of the path.
+The head part is removed from the returned list of directory names."
   (split-string (replace-regexp-in-string head-pattern "" default-directory) "/" t))
 
 (defun debugito-immediate-dir ()
+  "Return the name of the leaf directory in `default-directory'."
   (car (last (split-string default-directory "/" t))))
 
 (defun debugito-filename (with-extension)
+  "Return the filename of the current buffer.
+If WITH-EXTENSION is non-nil, the returned filename includes the extension. If nil, the extension is removed."
   (let ((file-name (file-name-base (or (buffer-file-name) (buffer-name)))))
     (if with-extension
         file-name
       (replace-regexp-in-string "\\..*$" "" file-name))))
 
 (defun debugito-module-path (dir-head-pattern)
+  "Return the list of strings that consist of so-called module path.
+The module path is a list of directory names followed by the filename without extension.
+DIR-HEAD-PATTERN is the regexp of the head part of directory path that is not part of module path."
   (append (debugito-dirs dir-head-pattern) (cons (debugito-filename nil) nil)))
 
 (defun debugito-join (delim ss)
+  "Concatenate SS, a list of strings, with DELIM as the delimiter between the strings."
   (mapconcat 'identity ss delim))
