@@ -101,7 +101,9 @@ You may want to bind a key sequence `C-x r n' or something to this command."
 ;; rotational input
 (defvar debugito-rot-dollar '(("$" . 1) ("\\" . 1) ("\\$" . 2) ("\\\\" . 2) ("$" . 0)))
 (defvar debugito-rot-arrow '(("->" . 2) ("=>" . 2) ("<-" . 2)))
-(defvar debugito-rot-othersigils '(("@" . 1) ("%" . 1) ("&" . 1)))
+(defvar debugito-rot-othersigils-at '(("@" . 1) ("%" . 1) ("&" . 1)))
+(defvar debugito-rot-othersigils-amp '(("&" . 1) ("%" . 1) ("@" . 1)))
+
 
 (defvar debugito-rot-current-list nil)
 (defvar debugito-rot-previous-elem nil)
