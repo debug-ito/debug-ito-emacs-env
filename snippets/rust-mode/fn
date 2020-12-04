@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: function
-# key: fn
+# key: fun
 # --
 fn ${1:function_name}($2)$0 {
     
