@@ -329,7 +329,6 @@
 (global-set-key (kbd "C-,") "<")
 (global-set-key (kbd "C--") "=")
 (global-set-key (kbd "C-\\") "_")
-(global-set-key (kbd "M-,") (lambda () (interactive) (find-tag "" t)))
 (global-set-key (kbd "C-o") (lambda () (interactive) (debugito-rot-input debugito-rot-dollar 'debugito-rot-CO)))
 (global-set-key (kbd "C-t") (lambda (arg) (interactive "p")
                   (if (= arg 1)
