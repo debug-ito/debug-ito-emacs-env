@@ -2,11 +2,5 @@
 # name: module head
 # key: mod
 # --
--- |
--- Module: ${1:`(debugito-join "." (debugito-module-path ".*/\\(src\\|test\\)/"))`}
--- Description: $0
--- Maintainer: `debugito-yas-name` <`debugito-yas-email`>
---
--- 
-module $1
+module ${1:`(debugito-join "." (debugito-module-path ".*/\\(src\\|test\\)/"))`}
        () where
