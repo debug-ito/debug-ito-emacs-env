@@ -280,8 +280,10 @@
           (lambda ()
             (local-set-key (kbd "C-o") (lambda () (interactive) (debugito-rot-input debugito-rot-go 'debugito-rot-CO)))
             (setq tab-width 4)
-            (setq indent-tabs-mode t)))
-(add-hook 'before-save-hook 'gofmt-before-save)
+            (setq indent-tabs-mode t)
+            (add-hook 'before-save-hook 'gofmt-before-save)
+            (setq gofmt-args '("-s"))))
+
 
 ;;;;;;;;;;;;;;;;;; setting for japanese-zenkaku-region
 
