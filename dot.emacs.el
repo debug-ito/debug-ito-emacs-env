@@ -279,6 +279,7 @@
 (add-hook 'go-mode-hook
           (lambda ()
             (local-set-key (kbd "C-o") (lambda () (interactive) (debugito-rot-input debugito-rot-go 'debugito-rot-CO)))
+            (define-key go-mode-map (kbd "M-.") 'godef-jump)
             (setq tab-width 4)
             (setq indent-tabs-mode t)
             (add-hook 'before-save-hook 'gofmt-before-save)
