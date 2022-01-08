@@ -235,23 +235,21 @@
 (setq js-auto-indent-flag nil)
 
 ;;;;;;;;;;;;;;;;;;; Haskell mode
-(setq haskell-mode-hook
-      '(turn-on-haskell-indentation
-        turn-on-haskell-doc-mode
-        turn-on-haskell-decl-scan
-        turn-on-font-lock
-        (lambda ()
-          (set (make-local-variable 'debugito-open-block-impl) 'debugito-open-block-aligned)
-
-          ;; Quick fix for fill-paragraph missing haddock line for
-          ;; haskell-mode 13.14.2-1 (from Ubuntu repository).
-          ;; See: https://github.com/haskell/haskell-mode/issues/570
-          (when (equal haskell-version "13.14")
-            (set 'paragraph-separate (concat " *$\\| *\\({-\\|-}\\) *$\\|" page-delimiter)))
-          
-          (define-key haskell-indentation-mode-map (kbd "C-j") 'haskell-indentation-newline-and-indent)
-          (define-key haskell-indentation-mode-map (kbd "RET") 'newline)
-          (define-key haskell-indentation-mode-map (kbd "C-d") 'delete-char))))
+(setq haskell-stylish-on-save t)
+(add-hook 'haskell-mode-hook
+          (lambda ()
+            (haskell-doc-mode)
+            (haskell-decl-scan-mode)
+            (set (make-local-variable 'debugito-open-block-impl) 'debugito-open-block-aligned)
+            ;; Quick fix for fill-paragraph missing haddock line for
+            ;; haskell-mode 13.14.2-1 (from Ubuntu repository).
+            ;; See: https://github.com/haskell/haskell-mode/issues/570
+            (when (equal haskell-version "13.14")
+              (set 'paragraph-separate (concat " *$\\| *\\({-\\|-}\\) *$\\|" page-delimiter)))
+            
+            (define-key haskell-indentation-mode-map (kbd "C-j") 'haskell-indentation-newline-and-indent)
+            (define-key haskell-indentation-mode-map (kbd "RET") 'newline)
+            (define-key haskell-indentation-mode-map (kbd "C-d") 'delete-char)))
 
 ;;;;;;;;;;;;;;;;;;; Elm mode
 (defvar debugito-rot-elm '(("<|" . 2) ("\\" . 1) ("|>" . 2)))

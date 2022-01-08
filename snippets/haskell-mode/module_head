@@ -1,6 +1,8 @@
 # -*- mode: snippet -*-
 # name: module head
 # key: mod
+# expand-env: ((yas-indent-line 'fixed))
 # --
 module ${1:`(debugito-join "." (debugito-module-path ".*/\\(src\\|test\\)/"))`}
-       () where
+    (
+    ) where
