@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: import for re-export
+# key: re
+# --
+import ${1:Module} as ${2:X} ($0)
