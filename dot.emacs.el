@@ -31,10 +31,17 @@
 (setq emacs-lisp-docstring-fill-column fill-column)
 (server-start)
 
-;;;;;;;;;;;;;; elscreen http://www.morishima.net/~naoto/elscreen-en/?lang=en
-(when (debugito-require-if-any 'elscreen)
-  (elscreen-start))
-
+;;;;;;;;;;;;;; tab-bar. https://masutaka.net/2020-08-16-1/
+(tab-bar-mode 1)
+(defvar ctl-z-map (make-keymap))
+(define-key global-map (kbd "C-z") ctl-z-map)
+(define-key ctl-z-map (kbd "C-c") 'tab-new)
+(define-key ctl-z-map (kbd "C-k") 'tab-close)
+(define-key ctl-z-map (kbd "C-n") 'tab-next)
+(define-key ctl-z-map (kbd "C-p") 'tab-previous)
+(define-key ctl-z-map (kbd "C-SPC") 'tab-recent)
+(define-key ctl-z-map (kbd "C-f") 'find-file-other-tab)
+(define-key ctl-z-map (kbd "C-b") 'switch-to-buffer-other-tab)
 
 ;;;;;;;;;;;;;; uniquify
 (when (debugito-require-if-any 'uniquify)
