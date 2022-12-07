@@ -33,6 +33,10 @@
 
 ;;;;;;;;;;;;;; tab-bar. https://masutaka.net/2020-08-16-1/
 (tab-bar-mode 1)
+(setq tab-bar-close-button-show nil)
+(setq tab-bar-close-tab-select 'left)
+(setq tab-bar-new-tab-choice "*scratch*")
+(setq tab-bar-new-tab-to 'rightmost)
 (defvar ctl-z-map (make-keymap))
 (define-key global-map (kbd "C-z") ctl-z-map)
 (define-key ctl-z-map (kbd "C-c") 'tab-new)
