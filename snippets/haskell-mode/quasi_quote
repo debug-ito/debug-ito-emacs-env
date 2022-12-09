@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: quasi quote
+# key: qq
+# --
+[${1:quoter}|$0|]
