@@ -2,5 +2,5 @@
 # name: instance
 # key: ins
 # --
-instance ${1:Class} where
+instance ${1:Class} ${2:Type} where
   $0
