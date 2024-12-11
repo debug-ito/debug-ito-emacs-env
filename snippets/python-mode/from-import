@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: from import
+# key: fr
+# --
+from ${1:package} import $0
