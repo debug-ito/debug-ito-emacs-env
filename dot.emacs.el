@@ -69,7 +69,8 @@
        (setq x-select-enable-clipboard t) ;; Share kill-ring and X clipboard
        (add-to-list 'default-frame-alist (cons 'height debugito-frame-height))
        (add-to-list 'default-frame-alist (cons 'width debugito-frame-width))
-       (set-face-attribute 'region nil :foreground "gtk_selection_fg_color")))
+       (set-face-attribute 'region nil :foreground "gtk_selection_fg_color")
+       (set-face-attribute 'region nil :background "gtk_selection_bg_color")))
 
 ;; Setting for sensible split
 ;; see Help "split-window-sensibly"
