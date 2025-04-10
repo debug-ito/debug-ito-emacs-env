@@ -87,6 +87,12 @@
 ; 辞書変更にはispell-change-dictionaryを使う
 (setq-default ispell-program-name "aspell")
 
+;; rotating input
+(defun debugito-make-rot-CO (input-list)
+  (lexical-let ((inputs input-list))
+    (lambda () (interactive)
+      (debugito-rot-input inputs 'debugito-rot-CO))))
+
 ;;;;;;;;;;;;;;; mozc
 (when (debugito-require-if-any 'mozc)
   (setq default-input-method "japanese-mozc"))
@@ -270,7 +276,8 @@
       '((lambda ()
           (set (make-local-variable 'debugito-open-block-impl) 'debugito-open-block-aligned))
         (lambda ()
-          (local-set-key (kbd "C-o") (lambda () (interactive) (debugito-rot-input debugito-rot-elm 'debugito-rot-CO))))))
+          (local-set-key (kbd "C-o") (debugito-make-rot-CO debugito-rot-elm)))))
+
 
 ;;;;;;;;;;;;;;;;;;; Groovy mode
 
@@ -289,7 +296,7 @@
 (defvar debugito-rot-go '((":=" . 2) ("\\" . 1) ("<-" . 2)))
 (add-hook 'go-mode-hook
           (lambda ()
-            (local-set-key (kbd "C-o") (lambda () (interactive) (debugito-rot-input debugito-rot-go 'debugito-rot-CO)))
+            (local-set-key (kbd "C-o") (debugito-make-rot-CO debugito-rot-go))
             (define-key go-mode-map (kbd "M-.") 'godef-jump)
             (setq tab-width 4)
             (setq indent-tabs-mode t)
@@ -343,7 +350,8 @@
 (global-set-key (kbd "C-,") "<")
 (global-set-key (kbd "C--") "=")
 (global-set-key (kbd "C-\\") "_")
-(global-set-key (kbd "C-o") (lambda () (interactive) (debugito-rot-input debugito-rot-dollar 'debugito-rot-CO)))
+;; (global-set-key (kbd "C-o") (lambda () (interactive) (debugito-rot-input debugito-rot-dollar 'debugito-rot-CO)))
+(global-set-key (kbd "C-o") (debugito-make-rot-CO debugito-rot-dollar))
 (global-set-key (kbd "C-t") (lambda (arg) (interactive "p")
                   (if (= arg 1)
                       (debugito-rot-input debugito-rot-othersigils-amp 'debugito-rot-CT)
@@ -361,7 +369,8 @@
         `(;; One-touch opening a block
           (,(kbd "C-c C-j") . debugito-open-block)
           ;; sequential numbering
-          (,(kbd "C-c C-o") . (lambda () (interactive) (debugito-rot-input debugito-rot-arrow 'debugito-rot-CO)))))
+          ;; (,(kbd "C-c C-o") . (lambda () (interactive) (debugito-rot-input debugito-rot-arrow 'debugito-rot-CO)))))
+          (,(kbd "C-c C-o") . ,(debugito-make-rot-CO debugito-rot-arrow))))
 
 (define-minor-mode my-keyjack-mode
   "A minor mode so that my key settings override annoying major modes."
