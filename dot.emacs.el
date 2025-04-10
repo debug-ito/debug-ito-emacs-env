@@ -93,6 +93,14 @@
     (lambda () (interactive)
       (debugito-rot-input inputs 'debugito-rot-CO))))
 
+(defun debugito-make-rot-CT (input-list)
+  (lexical-let ((inputs input-list))
+    (lambda (arg)
+      (interactive "p")
+      (if (= arg 1)
+          (debugito-rot-input inputs 'debugito-rot-CT)
+        (debugito-rot-input debugito-rot-arrow 'debugito-rot-CT 2)))))
+
 ;;;;;;;;;;;;;;; mozc
 (when (debugito-require-if-any 'mozc)
   (setq default-input-method "japanese-mozc"))
@@ -221,8 +229,7 @@
 (add-hook 'cperl-mode-hook
           (lambda ()
             (local-set-key (kbd "M-m") (lambda () (interactive) (insert "my ")))
-            (local-set-key (kbd "C-t") (lambda () (interactive)
-                                         (debugito-rot-input debugito-rot-othersigils-at 'debugito-rot-CT)))
+            (local-set-key (kbd "C-t") (debugito-make-rot-CT debugito-rot-othersigils-at))
             ;; Forbid ugly special color theme. Standard theme is the most beautiful.
             (copy-face 'font-lock-variable-name-face 'cperl-array-face)
             (copy-face 'font-lock-variable-name-face 'cperl-hash-face)
@@ -352,10 +359,7 @@
 (global-set-key (kbd "C-\\") "_")
 ;; (global-set-key (kbd "C-o") (lambda () (interactive) (debugito-rot-input debugito-rot-dollar 'debugito-rot-CO)))
 (global-set-key (kbd "C-o") (debugito-make-rot-CO debugito-rot-dollar))
-(global-set-key (kbd "C-t") (lambda (arg) (interactive "p")
-                  (if (= arg 1)
-                      (debugito-rot-input debugito-rot-othersigils-amp 'debugito-rot-CT)
-                    (debugito-rot-input debugito-rot-arrow 'debugito-rot-CT 2))))
+(global-set-key (kbd "C-t") (debugito-make-rot-CT debugito-rot-othersigils-amp))
 
 ;; Always-enabled global key setting
 ;; http://pqrs.org/emacs/doc/keyjack-mode/index.html
