@@ -243,6 +243,10 @@
 ;;                         '(("&[a-zA-Z_0-9]*" 0  font-lock-function-call-face))
 ;;                         nil)))
 
+;;;;;;;;;;;;;;;;;;;;; Python mode
+(add-hook 'python-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-t") (debugito-make-rot-CT debugito-rot-othersigils-at))))
 
 ;;;;;;;;;;;;;;;;;;;;; Ruby mode
 (add-hook 'ruby-mode-hook
