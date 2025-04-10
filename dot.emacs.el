@@ -215,7 +215,6 @@
 (add-hook 'cperl-mode-hook
           (lambda ()
             (local-set-key (kbd "M-m") (lambda () (interactive) (insert "my ")))
-            (local-set-key (kbd "<tab>") 'indent-for-tab-command)
             (local-set-key (kbd "C-t") (lambda () (interactive)
                                          (debugito-rot-input debugito-rot-othersigils-at 'debugito-rot-CT)))
             ;; Forbid ugly special color theme. Standard theme is the most beautiful.
